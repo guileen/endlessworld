@@ -1,0 +1,38 @@
+TODO:
+engine
+
+
+## prefix of files
+
+* engine_ core graphic engines.
+
+
+deps:
+sds  simple dynamic string.
+nuclear c gui library.
+imgui c++ gui library.
+GUI的框架很多 oui-blendish，lcui，nanovg，
+
+GUI框架要做的事
+初始化，绑定context
+构建方法
+每帧绘制
+GUI元素：
+1. Splash／Loading
+1. MainScreen
+1. 窗口、展示性，Label，多行文本，字体。
+2. 布局与自动对齐。
+2. 事件拦截
+3. 按钮点击检测
+4. 对话框（确认框）
+5. 输入框
+6. Tab切换
+4. 滚动条（垂直为主）
+5. 单选／复选
+6. 下拉列表
+
+资源管理器：
+1. 根据文件名自动加载
+2. 加载过的文件有缓存
+3. 根据文件名释放
+4. 强制释放所有
