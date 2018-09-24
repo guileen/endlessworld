@@ -16,5 +16,8 @@
 #define streql(s1,s2) (strcmp((s1),(s2))==0)
 // files
 const char* get_filename_ext(const char *filename);
+// random
+// srand(time(NULL));   // should only be called once
+#define random(x) rand() % (x)
 
 #endif /* cutils_h */

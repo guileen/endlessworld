@@ -9,13 +9,30 @@
 #ifndef game_res_h
 #define game_res_h
 #include "engine.h"
-#include <stdio.h>
 
-GSurface* bgSplash;
-GSurface* bgMainMenu;
-GSurface* bgCharacterSelector;
-GSurface* btnStartGame;
+extern const int MAX_RESOURCES;
+
+extern GSurface* gLoadedResources[];
+extern GSurface* tileTable[];
 
 void loadResource();
+
+inline GSurface* getSurface(int index) {
+    return gLoadedResources[index];
+}
+
+// get resource from cache by index, if not exists load via path.
+// if index < 0, no cache.
+static inline GSurface* loadSurface(int index, const char* path) {
+    return (gLoadedResources[index]) ? gLoadedResources[index] :
+        (gLoadedResources[index] = loadImage(path));
+}
+
+static inline GSurface* loadTileSurface(int tileId) {
+    char buff[255];
+    sprintf(buff, "res/tiles/groud/%d.png", tileId);
+    GSurface** tile = tileTable + tileId; // same as tileTable[tileId]
+    return *tile ? *tile : (*tile = loadImage(buff));
+}
 
 #endif /* game_res_h */

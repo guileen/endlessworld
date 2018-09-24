@@ -15,29 +15,55 @@
 
 #ifndef engine_h
 #define engine_h
+#include <stdbool.h>
 
 #define USE_SDL
-#include "engine_base.h"
 
 #ifdef USE_SDL
-// sdl2 staff
-#endif
+// sdl staff
+#ifdef __APPLE__
+
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
+#include <SDL2_mixer/SDL_mixer.h>
+
+#else
+
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
+
+#endif /* __APPLE__ */
+
+// Graphics
+typedef SDL_Surface GSurface;
+typedef SDL_Rect GRect;
+#define Blit SDL_BlitSurface
+#define BlitScaled SDL_BlitScaled
+
+#endif /* USE_SDL */
+
+extern SDL_Window* gWindow;
+extern SDL_Surface* gScreen;
+extern SDL_GLContext* glContext;
 
 #ifdef __cplusplus
 // support C++
 extern "C" {
 #endif
+
     // game windows
-    int gn_init(const char* title, int width, int height, bool fullscreen);
-    int gn_quit();
-    void gn_update_window();
-    GSurface* gn_get_screen();
+    int appInit(const char* title, int width, int height, bool fullscreen);
+    int appQuit();
+    static inline void updateWindow() {
+        SDL_UpdateWindowSurface( gWindow );
+    }
+
     // resources
-    GSurface* gn_load_image(const char* path);
-    // 
-#ifdef USE_SDL
-    SDL_Window* gn_get_window();
-#endif
+    GSurface* loadImage(const char* path);
+    
 #ifdef __cplusplus
 }
 #endif

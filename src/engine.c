@@ -9,11 +9,11 @@
 #include "cutils.h"
 #include "engine.h"
 
-SDL_Window* g_window;
-SDL_Surface* g_screen;
+SDL_Window* gWindow;
+SDL_Surface* gScreen;
 SDL_GLContext* glContext;
 
-int gn_init(const char* title, int width, int height, bool fullscreen) {
+int appInit(const char* title, int width, int height, bool fullscreen) {
     /* GUI */
 //    struct nk_context *ctx;
 //    SDL_GLContext glContext;
@@ -35,18 +35,25 @@ int gn_init(const char* title, int width, int height, bool fullscreen) {
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
     //Create window
-    g_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI );
-    if( g_window == NULL )
+    gWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI );
+    if( gWindow == NULL )
     {
         printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
         return 2;
     }
     
+    int imgFlags = IMG_INIT_PNG;
+    if( !( IMG_Init( imgFlags ) & imgFlags ) )
+    {
+        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+        return 3;
+    }
+    
     //Get window surface
-    g_screen = SDL_GetWindowSurface( g_window );
+    gScreen = SDL_GetWindowSurface( gWindow );
     return 0;
     
-    // glContext = SDL_GL_CreateContext(g_window);
+    // glContext = SDL_GL_CreateContext(gWindow);
     
     /* OpenGL setup */
     // glViewport(0, 0, width, height);
@@ -54,36 +61,44 @@ int gn_init(const char* title, int width, int height, bool fullscreen) {
     // ctx = nk_sdl_init(win);
 }
 
-int gn_quit() {
+int appQuit() {
     printf("TODO: SDL_FreeSurface(all loaded resources)");
     
     //Destroy window
-    SDL_DestroyWindow( g_window );
-    g_window = NULL;
+    SDL_DestroyWindow( gWindow );
+    gWindow = NULL;
     
     //Quit SDL subsystems
     SDL_Quit();
     return 0;
 }
 
-void gn_update_window() {
-    SDL_UpdateWindowSurface( g_window );
-}
-
-GSurface* gn_get_screen() {
-    return g_screen;
-}
-
-GSurface* gn_load_image(const char* path) {
+GSurface* loadImage(const char* path) {
     const char* ext = get_filename_ext(path);
-    GSurface* s = NULL;
+    GSurface* loadedSurface = NULL;
+    GSurface* optimizedSurface;
     if(streql(ext, "bmp")) {
-        s = SDL_LoadBMP(path);
-        if( s == NULL ) {
+        loadedSurface = SDL_LoadBMP(path);
+        if( loadedSurface == NULL ) {
             printf( "Unable to load image %s! SDL Error: %s\n", path, SDL_GetError());
         }
+    } else if (streql(ext, "png")) {
+        loadedSurface = IMG_Load(path);
+        if( loadedSurface == NULL ) {
+            printf( "Unable to load image %s! SDL_image Error: %s\n", path, IMG_GetError());
+        }
     } else {
-        printf("gn_load_image: %s not support yet!\n", ext);
+        printf("loadImage: %s,  %s not support yet!\n", path, ext);
     }
-    return s;
+    //Convert surface to screen format
+    optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreen->format, 0);
+    if( optimizedSurface == NULL )
+    {
+        printf( "Unable to optimize image %s! SDL Error: %s\n", path, SDL_GetError() );
+        return loadedSurface;
+    }
+    
+    //Get rid of old loaded surface
+    SDL_FreeSurface( loadedSurface );
+    return optimizedSurface;
 }

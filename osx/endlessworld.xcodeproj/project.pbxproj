@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		67229CDD2155CDA0000675D1 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67229CDC2155CDA0000675D1 /* SDL2.framework */; };
 		67229CEE2155F0CC000675D1 /* engine.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229CEC2155F0CC000675D1 /* engine.c */; };
-		67229CFA215641EE000675D1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 67229CF4215641EE000675D1 /* Makefile */; };
-		67229CFB215641EE000675D1 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 67229CF5215641EE000675D1 /* README.md */; };
-		67229CFC215641EE000675D1 /* sds.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229CF6215641EE000675D1 /* sds.c */; };
 		67229CFF2156427B000675D1 /* cutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229CFD2156427B000675D1 /* cutils.c */; };
 		67229E38215725C4000675D1 /* game_res.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E34215725C4000675D1 /* game_res.c */; };
-		67229E39215725C4000675D1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67229E36215725C4000675D1 /* main.cpp */; };
+		67229E39215725C4000675D1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E36215725C4000675D1 /* main.c */; };
+		67229E582157DA59000675D1 /* tiledmap.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E562157DA59000675D1 /* tiledmap.c */; };
+		67229E5B2158075E000675D1 /* gameobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E592158075E000675D1 /* gameobject.c */; };
+		67229E5D21588CA1000675D1 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67229E5C21588CA1000675D1 /* SDL2_image.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,23 +33,18 @@
 		67229CD02155CB5E000675D1 /* endlessworld */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = endlessworld; sourceTree = BUILT_PRODUCTS_DIR; };
 		67229CDC2155CDA0000675D1 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		67229CE92155D6A1000675D1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		67229CEA2155E6B4000675D1 /* engine_base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine_base.h; sourceTree = "<group>"; };
 		67229CEC2155F0CC000675D1 /* engine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = engine.c; sourceTree = "<group>"; };
 		67229CED2155F0CC000675D1 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
-		67229CF1215641EE000675D1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		67229CF2215641EE000675D1 /* Changelog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelog; sourceTree = "<group>"; };
-		67229CF3215641EE000675D1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		67229CF4215641EE000675D1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		67229CF5215641EE000675D1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		67229CF6215641EE000675D1 /* sds.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sds.c; sourceTree = "<group>"; };
-		67229CF7215641EE000675D1 /* sds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sds.h; sourceTree = "<group>"; };
-		67229CF8215641EE000675D1 /* sdsalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdsalloc.h; sourceTree = "<group>"; };
-		67229CF9215641EE000675D1 /* testhelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testhelp.h; sourceTree = "<group>"; };
 		67229CFD2156427B000675D1 /* cutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cutils.c; sourceTree = "<group>"; };
 		67229CFE2156427B000675D1 /* cutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cutils.h; sourceTree = "<group>"; };
 		67229E34215725C4000675D1 /* game_res.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_res.c; sourceTree = "<group>"; };
 		67229E35215725C4000675D1 /* game_res.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_res.h; sourceTree = "<group>"; };
-		67229E36215725C4000675D1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		67229E36215725C4000675D1 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		67229E562157DA59000675D1 /* tiledmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tiledmap.c; sourceTree = "<group>"; };
+		67229E572157DA59000675D1 /* tiledmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiledmap.h; sourceTree = "<group>"; };
+		67229E592158075E000675D1 /* gameobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gameobject.c; sourceTree = "<group>"; };
+		67229E5A2158075E000675D1 /* gameobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameobject.h; sourceTree = "<group>"; };
+		67229E5C21588CA1000675D1 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67229E5D21588CA1000675D1 /* SDL2_image.framework in Frameworks */,
 				67229CDD2155CDA0000675D1 /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,7 +63,6 @@
 		67229CC72155CB5E000675D1 = {
 			isa = PBXGroup;
 			children = (
-				67229CEF215641EE000675D1 /* deps */,
 				67229CE92155D6A1000675D1 /* README.md */,
 				67229CDF2155CF9D000675D1 /* src */,
 				67229CD12155CB5E000675D1 /* Products */,
@@ -86,6 +81,7 @@
 		67229CDB2155CDA0000675D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67229E5C21588CA1000675D1 /* SDL2_image.framework */,
 				67229CDC2155CDA0000675D1 /* SDL2.framework */,
 			);
 			name = Frameworks;
@@ -96,40 +92,18 @@
 			children = (
 				67229E34215725C4000675D1 /* game_res.c */,
 				67229E35215725C4000675D1 /* game_res.h */,
-				67229E36215725C4000675D1 /* main.cpp */,
-				67229CEA2155E6B4000675D1 /* engine_base.h */,
+				67229E562157DA59000675D1 /* tiledmap.c */,
+				67229E572157DA59000675D1 /* tiledmap.h */,
+				67229E36215725C4000675D1 /* main.c */,
 				67229CEC2155F0CC000675D1 /* engine.c */,
 				67229CED2155F0CC000675D1 /* engine.h */,
 				67229CFD2156427B000675D1 /* cutils.c */,
 				67229CFE2156427B000675D1 /* cutils.h */,
+				67229E592158075E000675D1 /* gameobject.c */,
+				67229E5A2158075E000675D1 /* gameobject.h */,
 			);
 			name = src;
 			path = ../src;
-			sourceTree = "<group>";
-		};
-		67229CEF215641EE000675D1 /* deps */ = {
-			isa = PBXGroup;
-			children = (
-				67229CF0215641EE000675D1 /* sds */,
-			);
-			name = deps;
-			path = ../deps;
-			sourceTree = "<group>";
-		};
-		67229CF0215641EE000675D1 /* sds */ = {
-			isa = PBXGroup;
-			children = (
-				67229CF1215641EE000675D1 /* .gitignore */,
-				67229CF2215641EE000675D1 /* Changelog */,
-				67229CF3215641EE000675D1 /* LICENSE */,
-				67229CF4215641EE000675D1 /* Makefile */,
-				67229CF5215641EE000675D1 /* README.md */,
-				67229CF6215641EE000675D1 /* sds.c */,
-				67229CF7215641EE000675D1 /* sds.h */,
-				67229CF8215641EE000675D1 /* sdsalloc.h */,
-				67229CF9215641EE000675D1 /* testhelp.h */,
-			);
-			path = sds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,11 +163,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67229E5B2158075E000675D1 /* gameobject.c in Sources */,
 				67229CFF2156427B000675D1 /* cutils.c in Sources */,
-				67229CFC215641EE000675D1 /* sds.c in Sources */,
-				67229E39215725C4000675D1 /* main.cpp in Sources */,
-				67229CFB215641EE000675D1 /* README.md in Sources */,
-				67229CFA215641EE000675D1 /* Makefile in Sources */,
+				67229E39215725C4000675D1 /* main.c in Sources */,
+				67229E582157DA59000675D1 /* tiledmap.c in Sources */,
 				67229E38215725C4000675D1 /* game_res.c in Sources */,
 				67229CEE2155F0CC000675D1 /* engine.c in Sources */,
 			);

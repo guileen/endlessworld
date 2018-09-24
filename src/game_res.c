@@ -7,3 +7,8 @@
 //
 
 #include "game_res.h"
+
+const int MAX_RESOURCES=1000;
+
+GSurface* gLoadedResources[MAX_RESOURCES];
+GSurface* tileTable[32];

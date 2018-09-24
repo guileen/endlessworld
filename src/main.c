@@ -6,6 +6,8 @@
 //  Copyright © 2018年 林 桂. All rights reserved.
 //
 
+#include "tiledmap.h"
+#include "game_res.h"
 #include "engine.h"
 
 GSurface* gSplash = NULL;
@@ -18,40 +20,41 @@ bool loadMedia()
 {
     //Loading success flag
     bool success = true;
-    
-    //Load splash image
-    gSplash = gn_load_image( "res/images/hello_world.bmp" );
-    if( gSplash == NULL )
-    {
-        printf( "Unable to load image %s! SDL Error: %s\n", "res/images/hello_world.bmp", SDL_GetError() );
-        success = false;
-    }
-    
-    gXOut = gn_load_image("res/images/xout.bmp");
+    gXOut = loadImage("res/images/xout.bmp");
     if( gXOut == NULL )
     {
-        printf( "Unable to load image %s! SDL Error: %s\n", "res/images/xout.bmp", SDL_GetError() );
+        printf( "Unable to load image %s! SDL Error: %s\n", "res/images/xout.png", SDL_GetError() );
         success = false;
     }
+    for(int i=1;i<=10;i++) loadTileSurface(i);
     return success;
 }
 
 int LoadingScreen() {
+    //Load splash image
+    gSplash = loadImage( "res/images/hello_world.bmp" );
+    if( gSplash == NULL )
+    {
+        printf( "Unable to load image %s! SDL Error: %s\n", "res/images/hello_world.png", SDL_GetError() );
+        return -1;
+    }
+    SDL_Rect dst = {0, 0, 800, 600};
+    //Apply the image
+    BlitScaled( gSplash, NULL, gScreen, &dst);
+    //Update the surface
+    updateWindow();
+    
     //Load media
     if( !loadMedia() )
     {
         printf( "Failed to load media!\n" );
         return -1;
     }
-    //Apply the image
-    GBlitSurface( gSplash, NULL, gn_get_screen(), NULL );
-    //Update the surface
-    gn_update_window();
+    
     //Wait two seconds
-    SDL_Delay( 2000 );
-    GBlitSurface( gXOut, NULL, gn_get_screen(), NULL );
-    //Update the surface
-    gn_update_window();
+    SDL_Delay( 1000 );
+    BlitScaled( gXOut, NULL, gScreen, &dst );
+    updateWindow();
     return 0;
 }
 
@@ -77,17 +80,19 @@ void MainLoop() {
         }
     } //Apply the image
     // Update()
+//    GBlitSurface( currentSurface, NULL, gn_get_screen(), NULL );
     // Render
-    GBlitSurface( currentSurface, NULL, gn_get_screen(), NULL );
-    
+    renderWorld(640, 480, (800 - 640)/2, (600-480)/2 );
     //Update the surface
-    gn_update_window();
+    updateWindow();
+    // TODO fps fix.
+    SDL_Delay(30);
 }
 
 int main(int argc, const char * argv[]) {
 
     //Start up SDL and create window
-    if(gn_init("SDL tutorial", 640, 480, false)) return 1;
+    if(appInit("SDL tutorial", 800, 600, false)) return 1;
     // Enter loading screen
     if(LoadingScreen()) return 1;
     
@@ -98,5 +103,5 @@ int main(int argc, const char * argv[]) {
     while (running) MainLoop();
 #endif
     //Free resources and close SDL
-    return gn_quit();
+    return appQuit();
 }
