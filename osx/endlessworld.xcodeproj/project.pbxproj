@@ -11,10 +11,11 @@
 		67229CEE2155F0CC000675D1 /* engine.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229CEC2155F0CC000675D1 /* engine.c */; };
 		67229CFF2156427B000675D1 /* cutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229CFD2156427B000675D1 /* cutils.c */; };
 		67229E38215725C4000675D1 /* game_res.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E34215725C4000675D1 /* game_res.c */; };
-		67229E39215725C4000675D1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E36215725C4000675D1 /* main.c */; };
-		67229E582157DA59000675D1 /* tiledmap.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E562157DA59000675D1 /* tiledmap.c */; };
+		67229E39215725C4000675D1 /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 67229E36215725C4000675D1 /* main.cc */; };
+		67229E582157DA59000675D1 /* tiledmap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 67229E562157DA59000675D1 /* tiledmap.cc */; };
 		67229E5B2158075E000675D1 /* gameobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 67229E592158075E000675D1 /* gameobject.c */; };
 		67229E5D21588CA1000675D1 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67229E5C21588CA1000675D1 /* SDL2_image.framework */; };
+		67229E6021592DD4000675D1 /* ltexture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 67229E5E21592DD4000675D1 /* ltexture.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,12 +40,14 @@
 		67229CFE2156427B000675D1 /* cutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cutils.h; sourceTree = "<group>"; };
 		67229E34215725C4000675D1 /* game_res.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_res.c; sourceTree = "<group>"; };
 		67229E35215725C4000675D1 /* game_res.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_res.h; sourceTree = "<group>"; };
-		67229E36215725C4000675D1 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		67229E562157DA59000675D1 /* tiledmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tiledmap.c; sourceTree = "<group>"; };
+		67229E36215725C4000675D1 /* main.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cc; sourceTree = "<group>"; };
+		67229E562157DA59000675D1 /* tiledmap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiledmap.cc; sourceTree = "<group>"; };
 		67229E572157DA59000675D1 /* tiledmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiledmap.h; sourceTree = "<group>"; };
 		67229E592158075E000675D1 /* gameobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gameobject.c; sourceTree = "<group>"; };
 		67229E5A2158075E000675D1 /* gameobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameobject.h; sourceTree = "<group>"; };
 		67229E5C21588CA1000675D1 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		67229E5E21592DD4000675D1 /* ltexture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ltexture.cc; sourceTree = "<group>"; };
+		67229E5F21592DD4000675D1 /* ltexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ltexture.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 		67229CC72155CB5E000675D1 = {
 			isa = PBXGroup;
 			children = (
+				67229E94215A07BF000675D1 /* deps */,
 				67229CE92155D6A1000675D1 /* README.md */,
 				67229CDF2155CF9D000675D1 /* src */,
 				67229CD12155CB5E000675D1 /* Products */,
@@ -92,18 +96,28 @@
 			children = (
 				67229E34215725C4000675D1 /* game_res.c */,
 				67229E35215725C4000675D1 /* game_res.h */,
-				67229E562157DA59000675D1 /* tiledmap.c */,
+				67229E562157DA59000675D1 /* tiledmap.cc */,
 				67229E572157DA59000675D1 /* tiledmap.h */,
-				67229E36215725C4000675D1 /* main.c */,
+				67229E36215725C4000675D1 /* main.cc */,
 				67229CEC2155F0CC000675D1 /* engine.c */,
 				67229CED2155F0CC000675D1 /* engine.h */,
 				67229CFD2156427B000675D1 /* cutils.c */,
 				67229CFE2156427B000675D1 /* cutils.h */,
 				67229E592158075E000675D1 /* gameobject.c */,
 				67229E5A2158075E000675D1 /* gameobject.h */,
+				67229E5E21592DD4000675D1 /* ltexture.cc */,
+				67229E5F21592DD4000675D1 /* ltexture.h */,
 			);
 			name = src;
 			path = ../src;
+			sourceTree = "<group>";
+		};
+		67229E94215A07BF000675D1 /* deps */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = deps;
+			path = ../deps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +161,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 67229CC72155CB5E000675D1;
 			productRefGroup = 67229CD12155CB5E000675D1 /* Products */;
@@ -165,10 +180,11 @@
 			files = (
 				67229E5B2158075E000675D1 /* gameobject.c in Sources */,
 				67229CFF2156427B000675D1 /* cutils.c in Sources */,
-				67229E39215725C4000675D1 /* main.c in Sources */,
-				67229E582157DA59000675D1 /* tiledmap.c in Sources */,
+				67229E39215725C4000675D1 /* main.cc in Sources */,
+				67229E582157DA59000675D1 /* tiledmap.cc in Sources */,
 				67229E38215725C4000675D1 /* game_res.c in Sources */,
 				67229CEE2155F0CC000675D1 /* engine.c in Sources */,
+				67229E6021592DD4000675D1 /* ltexture.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

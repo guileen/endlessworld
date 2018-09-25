@@ -11,4 +11,4 @@
 const int MAX_RESOURCES=1000;
 
 GSurface* gLoadedResources[MAX_RESOURCES];
-GSurface* tileTable[32];
+SDL_Texture* tileTable[32];

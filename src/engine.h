@@ -16,8 +16,14 @@
 #ifndef engine_h
 #define engine_h
 #include <stdbool.h>
+#include "cutils.h"
 
+// 控制宏，用于选择不同的底层引擎
 #define USE_SDL
+
+// -------------------------
+//      SDL2 相关代码
+// -------------------------
 
 #ifdef USE_SDL
 // sdl staff
@@ -37,17 +43,30 @@
 
 #endif /* __APPLE__ */
 
-// Graphics
-typedef SDL_Surface GSurface;
 typedef SDL_Rect GRect;
-#define Blit SDL_BlitSurface
-#define BlitScaled SDL_BlitScaled
-
-#endif /* USE_SDL */
+typedef SDL_Surface GSurface;
 
 extern SDL_Window* gWindow;
-extern SDL_Surface* gScreen;
+extern SDL_Renderer* gRenderer;
 extern SDL_GLContext* glContext;
+//extern SDL_Surface* gScreen;
+
+
+#ifdef USE_SDL_SURFACE
+#define Blit(t,sr,dr)       SDL_BlitSurface(t, sr, gScreent, dr)
+#define BlitScaled(t,sr,dr) SDL_BlitScaled(t, sr, gScreen, dr)
+#define UpdateScreen()      SDL_UpdateWindowSurface(gWindow)
+#else
+#define Blit(t,sr,dr)       SDL_RenderCopy(gRenderer, t, sr, dr)
+#define BlitScaled(t,sr,dr) SDL_RenderCopy(gRenderer, t, sr, dr)
+#define UpdateScreen()      SDL_RenderPresent(gRenderer)
+#endif
+
+#endif /* USE_SDL */
+// -----------------------------------------
+//             Global variables
+// -----------------------------------------
+
 
 #ifdef __cplusplus
 // support C++
@@ -57,12 +76,9 @@ extern "C" {
     // game windows
     int appInit(const char* title, int width, int height, bool fullscreen);
     int appQuit();
-    static inline void updateWindow() {
-        SDL_UpdateWindowSurface( gWindow );
-    }
-
     // resources
     GSurface* loadImage(const char* path);
+    SDL_Texture* loadTexture(const char* path);
     
 #ifdef __cplusplus
 }

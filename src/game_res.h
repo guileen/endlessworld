@@ -13,7 +13,7 @@
 extern const int MAX_RESOURCES;
 
 extern GSurface* gLoadedResources[];
-extern GSurface* tileTable[];
+extern SDL_Texture* tileTable[];
 
 void loadResource();
 
@@ -28,11 +28,11 @@ static inline GSurface* loadSurface(int index, const char* path) {
         (gLoadedResources[index] = loadImage(path));
 }
 
-static inline GSurface* loadTileSurface(int tileId) {
+static inline SDL_Texture* loadTileSurface(int tileId) {
     char buff[255];
     sprintf(buff, "res/tiles/groud/%d.png", tileId);
-    GSurface** tile = tileTable + tileId; // same as tileTable[tileId]
-    return *tile ? *tile : (*tile = loadImage(buff));
+    SDL_Texture** tile = tileTable + tileId; // same as tileTable[tileId]
+    return *tile ? *tile : (*tile = loadTexture(buff));
 }
 
 #endif /* game_res_h */

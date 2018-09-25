@@ -8,6 +8,7 @@
 
 #ifndef tiledmap_h
 #define tiledmap_h
+#include "game_res.h"
 
 void renderWorld(int screenWidth, int screenHeight, int offsetX, int offsetY);
 

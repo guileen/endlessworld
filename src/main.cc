@@ -7,20 +7,17 @@
 //
 
 #include "tiledmap.h"
-#include "game_res.h"
-#include "engine.h"
+#include <time.h>
 
-GSurface* gSplash = NULL;
-GSurface* gXOut = NULL;
-GSurface* currentSurface;
-GSurface* gKeyPressSurfaces[ 5 ];
+SDL_Texture* gSplash = NULL;
+SDL_Texture* gXOut = NULL;
 bool running = true;
 
 bool loadMedia()
 {
     //Loading success flag
     bool success = true;
-    gXOut = loadImage("res/images/xout.bmp");
+    gXOut = loadTexture("res/images/xout.bmp");
     if( gXOut == NULL )
     {
         printf( "Unable to load image %s! SDL Error: %s\n", "res/images/xout.png", SDL_GetError() );
@@ -32,17 +29,22 @@ bool loadMedia()
 
 int LoadingScreen() {
     //Load splash image
-    gSplash = loadImage( "res/images/hello_world.bmp" );
+    gSplash = loadTexture( "res/images/hello_world.bmp" );
     if( gSplash == NULL )
     {
         printf( "Unable to load image %s! SDL Error: %s\n", "res/images/hello_world.png", SDL_GetError() );
         return -1;
     }
-    SDL_Rect dst = {0, 0, 800, 600};
+    
+    //Clear screen
+    SDL_RenderClear( gRenderer );
+    //Render texture to screen
+    SDL_RenderCopy( gRenderer, gSplash, NULL, NULL );
+    UpdateScreen();
     //Apply the image
-    BlitScaled( gSplash, NULL, gScreen, &dst);
+    BlitScaled( gSplash, NULL, NULL);
     //Update the surface
-    updateWindow();
+    UpdateScreen();
     
     //Load media
     if( !loadMedia() )
@@ -53,8 +55,9 @@ int LoadingScreen() {
     
     //Wait two seconds
     SDL_Delay( 1000 );
-    BlitScaled( gXOut, NULL, gScreen, &dst );
-    updateWindow();
+    BlitScaled( gXOut, NULL, NULL );
+    UpdateScreen();
+    SDL_Delay( 1000 );
     return 0;
 }
 
@@ -71,26 +74,23 @@ void MainLoop() {
         } else if (e.type == SDL_KEYDOWN) {
             switch (e.key.keysym.sym) {
                 case SDLK_UP:
-                    currentSurface = gSplash;
+                    printf("up pressed\n");
                     break;
                 default:
-                    currentSurface = gXOut;
                     break;
             }
         }
     } //Apply the image
     // Update()
-//    GBlitSurface( currentSurface, NULL, gn_get_screen(), NULL );
+
     // Render
-    renderWorld(640, 480, (800 - 640)/2, (600-480)/2 );
-    //Update the surface
-    updateWindow();
+    renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
     // TODO fps fix.
     SDL_Delay(30);
 }
 
 int main(int argc, const char * argv[]) {
-
+    srand((int)time(NULL));   // should only be called once
     //Start up SDL and create window
     if(appInit("SDL tutorial", 800, 600, false)) return 1;
     // Enter loading screen
