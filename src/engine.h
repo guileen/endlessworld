@@ -51,6 +51,7 @@ extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern SDL_GLContext* glContext;
 //extern SDL_Surface* gScreen;
+extern SDL_Haptic* gControllerHaptic;
 
 
 #ifdef USE_SDL_SURFACE

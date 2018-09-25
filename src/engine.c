@@ -13,6 +13,9 @@ SDL_Surface* gScreen;
 TTF_Font *gFont = NULL;
 SDL_Renderer* gRenderer;
 SDL_GLContext* glContext;
+// GameController 1 handler, just for demo
+SDL_Joystick* gGameController = NULL;
+SDL_Haptic* gControllerHaptic = NULL;
 
 int appInit(const char* title, int width, int height, bool fullscreen) {
     /* GUI */
@@ -22,7 +25,7 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
     SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
 
     //Initialization flag
-    int flag=SDL_Init( SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS ); /*// - do NOT init SDL on GL ES 2*/
+    int flag=SDL_Init( SDL_INIT_EVERYTHING ); /*// - do NOT init SDL on GL ES 2*/
     //Initialize SDL
     if( flag < 0 ) {
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
@@ -66,6 +69,26 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
         return 5;
     }
      */
+    //Check for joysticks
+    if( SDL_NumJoysticks() >= 1 ) {
+        //Load joystick
+        gGameController = SDL_JoystickOpen( 0 );
+        if( gGameController == NULL ) {
+            printf( "Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError() );
+        } else {
+            //Get controller haptic device
+            gControllerHaptic = SDL_HapticOpenFromJoystick( gGameController );
+            if( gControllerHaptic == NULL ) {
+                printf( "Warning: Controller does not support haptics! SDL Error: %s\n", SDL_GetError() );
+            } else {
+                //Get initialize rumble
+                if( SDL_HapticRumbleInit( gControllerHaptic ) < 0 ) {
+                    printf( "Warning: Unable to initialize rumble! SDL Error: %s\n", SDL_GetError() );
+                }
+            }
+        }
+
+    }
     // initialize sub-system.
     int imgFlags = IMG_INIT_PNG;
     if( !( IMG_Init( imgFlags ) & imgFlags ) ) {
@@ -87,8 +110,16 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
 
 int appQuit() {
     printf("TODO: FreeSurface(all loaded resources)");
+    if(gGameController) {
+        SDL_JoystickClose( gGameController );
+        gGameController = NULL;
+        if(gControllerHaptic) {
+            SDL_HapticClose( gControllerHaptic );
+            gControllerHaptic = NULL;
+        }
+    }
+    
     SDL_DestroyRenderer( gRenderer );
-
     //Destroy window
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
@@ -173,4 +204,37 @@ SDL_Texture* textureFromText(const char* textureText, SDL_Color textColor, TTF_F
     
     //Return success
     return texture;
+}
+
+// const int JOYSTICK_DEAD_ZONE = 8000;
+// SDL converts its position into a number between -32768 to 32767.
+void UpdateJoyStickStateByEvent(SDL_Event* e, int* xDir, int* yDir, int JOYSTICK_DEAD_ZONE) {
+    if(e->type != SDL_JOYAXISMOTION) return;
+    //Motion on controller 0
+    if( e->jaxis.which == 0 ) {
+        if( e->jaxis.axis == 0 ) {
+            //X axis motion
+            if( e->jaxis.value < - JOYSTICK_DEAD_ZONE ) {
+                //Left of dead zone
+                *xDir = -1;
+            } else if( e->jaxis.value > JOYSTICK_DEAD_ZONE ) {
+                //Right of dead zone
+                *xDir =  1;
+            }
+            else {
+                *xDir = 0;
+            }
+        } else if( e->jaxis.axis == 1 ) {
+            //Y axis motion
+            if( e->jaxis.value < -JOYSTICK_DEAD_ZONE ) {
+                //Below of dead zone
+                *yDir = -1;
+            } else if( e->jaxis.value > JOYSTICK_DEAD_ZONE ) {
+                //Above of dead zone
+                *yDir =  1;
+            } else {
+                *yDir = 0;
+            }
+        }
+    }
 }

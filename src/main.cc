@@ -59,10 +59,10 @@ int LoadingScreen() {
     }
     
     //Wait two seconds
-    SDL_Delay( 10000 );
+    SDL_Delay( 0 );
     BlitScaled( gXOut, NULL, NULL );
     UpdateScreen();
-    SDL_Delay( 1000 );
+    SDL_Delay( 0 );
     return 0;
 }
 
@@ -88,8 +88,33 @@ void MainLoop() {
 //            int x, y;
 //            SDL_GetMouseState( &x, &y );
 //            handleMouseEvent(e, x, y);
+        } else if( e.type == SDL_JOYAXISMOTION ) {
+            // JoyStick support
+//            UpdateJoyStickStateByEvent(e, &xDir, &yDir, 8000);
+        } else if( e.type == SDL_JOYBUTTONDOWN ) {
+            //Joystick button press
+            //Play rumble at 75% strenght for 500 milliseconds
+            if( gControllerHaptic && SDL_HapticRumblePlay( gControllerHaptic, 0.75, 500 ) != 0 ) {
+                printf( "Warning: Unable to play rumble! %s\n", SDL_GetError() );
+            }
         }
     } //Apply the image
+    //Set texture based on current keystate
+    const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+    if( currentKeyStates[ SDL_SCANCODE_UP ] ) {
+        printf("up key down\n");
+    }
+    else if( currentKeyStates[ SDL_SCANCODE_DOWN ] ) {
+        printf("down key down\n");
+    }
+    else if( currentKeyStates[ SDL_SCANCODE_LEFT ] ) {
+        printf("left key down\n");
+    }
+    else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ) {
+        printf("right key down\n");
+    }
+    else {
+    }
     // Update()
 
     // Render
