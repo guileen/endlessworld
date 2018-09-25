@@ -33,13 +33,14 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_ttf/SDL_ttf.h>
 #include <SDL2_mixer/SDL_mixer.h>
-
+#define FONT_DEFAULT "/Library/Fonts/Arial.ttf"
 #else
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
+
 
 #endif /* __APPLE__ */
 
@@ -79,7 +80,7 @@ extern "C" {
     // resources
     GSurface* loadImage(const char* path);
     SDL_Texture* loadTexture(const char* path);
-    
+    SDL_Texture* textureFromText(const char* textureText, SDL_Color textColor, TTF_Font *font, int* w, int* h);
 #ifdef __cplusplus
 }
 #endif

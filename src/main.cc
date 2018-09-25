@@ -36,13 +36,18 @@ int LoadingScreen() {
         return -1;
     }
     
+
+    
     //Clear screen
     SDL_RenderClear( gRenderer );
-    //Render texture to screen
-    SDL_RenderCopy( gRenderer, gSplash, NULL, NULL );
+    
     UpdateScreen();
     //Apply the image
     BlitScaled( gSplash, NULL, NULL);
+    SDL_Color textColor = { 255, 255, 255 };
+    GRect dstRect = {200, 300};
+    SDL_Texture* txt = textureFromText("Hello world", textColor, NULL, &dstRect.w, &dstRect.h);
+    Blit(txt, NULL, &dstRect);
     //Update the surface
     UpdateScreen();
     
@@ -54,7 +59,7 @@ int LoadingScreen() {
     }
     
     //Wait two seconds
-    SDL_Delay( 1000 );
+    SDL_Delay( 10000 );
     BlitScaled( gXOut, NULL, NULL );
     UpdateScreen();
     SDL_Delay( 1000 );
@@ -79,6 +84,10 @@ void MainLoop() {
                 default:
                     break;
             }
+        } else if ( e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEWHEEL){
+//            int x, y;
+//            SDL_GetMouseState( &x, &y );
+//            handleMouseEvent(e, x, y);
         }
     } //Apply the image
     // Update()

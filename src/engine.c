@@ -10,6 +10,7 @@
 
 SDL_Window* gWindow;
 SDL_Surface* gScreen;
+TTF_Font *gFont = NULL;
 SDL_Renderer* gRenderer;
 SDL_GLContext* glContext;
 
@@ -42,19 +43,12 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
         return 2;
     }
     
-    int imgFlags = IMG_INIT_PNG;
-    if( !( IMG_Init( imgFlags ) & imgFlags ) )
-    {
-        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-        return 3;
-    }
-    
     //Create renderer for window
-    gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
+    gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
     if( gRenderer == NULL )
     {
         printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
-        return 4;
+        return 3;
     }
     SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
     // glContext = SDL_GL_CreateContext(gWindow);
@@ -72,7 +66,22 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
         return 5;
     }
      */
-    
+    // initialize sub-system.
+    int imgFlags = IMG_INIT_PNG;
+    if( !( IMG_Init( imgFlags ) & imgFlags ) ) {
+        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+        return 10;
+    }
+    if( TTF_Init() == -1 ) {
+        printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+        return 20;
+    }
+    //Open the font
+    gFont = TTF_OpenFont( FONT_DEFAULT, 32 );
+    if( gFont == NULL )
+    {
+        printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+    }
     return 0;
 }
 
@@ -85,6 +94,7 @@ int appQuit() {
     gWindow = NULL;
     
     //Quit SDL subsystems
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
     return 0;
@@ -135,4 +145,32 @@ SDL_Texture* loadTexture(const char* path) {
     //Get rid of old loaded surface
     SDL_FreeSurface( loadedSurface );
     return newTexture;
+}
+
+SDL_Texture* textureFromText(const char* textureText, SDL_Color textColor, TTF_Font *font, int* w, int* h) {
+    //Render text surface
+    SDL_Surface* textSurface = TTF_RenderText_Solid( font ? font : gFont, textureText, textColor );
+    if( textSurface == NULL ) {
+        printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+        return NULL;
+    }
+
+    //Create texture from surface pixels
+    SDL_Texture* texture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
+    if( texture == NULL ) {
+        printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
+        return NULL;
+    }
+
+    //Get image dimensions
+    if(w && h) {
+        *w = textSurface->w;
+        *h = textSurface->h;
+    }
+
+    //Get rid of old surface
+    SDL_FreeSurface( textSurface );
+    
+    //Return success
+    return texture;
 }
