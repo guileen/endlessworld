@@ -9,9 +9,17 @@
 #include "tiledmap.h"
 #include <time.h>
 
+const int SCREEN_FPS = 60;
+const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+
 SDL_Texture* gSplash = NULL;
 SDL_Texture* gXOut = NULL;
-bool running = true;
+
+// fps counter
+Uint32 lastFrameTick = 0;
+Uint32 lastFPSTick = 0;
+int _countedFrames = 0;
+float currentFPS;
 
 bool loadMedia()
 {
@@ -66,7 +74,8 @@ int LoadingScreen() {
     return 0;
 }
 
-void MainLoop() {
+// return true for continue, false for quit
+bool MainLoop() {
     //Event handler
     SDL_Event e;
     //Handle events on queue
@@ -75,7 +84,7 @@ void MainLoop() {
         //User requests quit
         if( e.type == SDL_QUIT )
         {
-            running = false;
+            return false;
         } else if (e.type == SDL_KEYDOWN) {
             switch (e.key.keysym.sym) {
                 case SDLK_UP:
@@ -119,8 +128,21 @@ void MainLoop() {
 
     // Render
     renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
-    // TODO fps fix.
-    SDL_Delay(30);
+    // Calc FPS, Cap FPS
+    _countedFrames ++;
+    Uint32 currentTick = SDL_GetTicks();
+    Uint32 frameTick = currentTick - lastFrameTick;
+    if(currentTick-lastFPSTick > 500) {
+        currentFPS = _countedFrames * 1000.0 / (currentTick-lastFPSTick) ;
+        _countedFrames = 0;
+        lastFPSTick = currentTick;
+        printf("fps: %.2f\n", currentFPS);
+    }
+    if(frameTick < SCREEN_TICKS_PER_FRAME) {
+        SDL_Delay(SCREEN_TICKS_PER_FRAME-frameTick);
+    }
+    lastFrameTick = currentTick;
+    return true;
 }
 
 int main(int argc, const char * argv[]) {
@@ -129,12 +151,13 @@ int main(int argc, const char * argv[]) {
     if(appInit("SDL tutorial", 800, 600, false)) return 1;
     // Enter loading screen
     if(LoadingScreen()) return 1;
-    
+    lastFPSTick = SDL_GetTicks();
+    lastFrameTick = SDL_GetTicks();
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
     emscripten_set_main_loop_arg(MainLoop, NULL, 0, nk_true);
 #else
-    while (running) MainLoop();
+    while(MainLoop());
 #endif
     //Free resources and close SDL
     return appQuit();
