@@ -18,7 +18,6 @@
 		67229E6021592DD4000675D1 /* ltexture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 67229E5E21592DD4000675D1 /* ltexture.cc */; };
 		6722A1D4215A52A1000675D1 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6722A1D2215A52A1000675D1 /* SDL2_mixer.framework */; };
 		6722A1D5215A52A1000675D1 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6722A1D3215A52A1000675D1 /* SDL2_ttf.framework */; };
-		6722A1D8215B7B1C000675D1 /* csprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6722A1D6215B7B1C000675D1 /* csprite.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,8 +52,6 @@
 		67229E5F21592DD4000675D1 /* ltexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ltexture.h; sourceTree = "<group>"; };
 		6722A1D2215A52A1000675D1 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		6722A1D3215A52A1000675D1 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
-		6722A1D6215B7B1C000675D1 /* csprite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csprite.cc; sourceTree = "<group>"; };
-		6722A1D7215B7B1C000675D1 /* csprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csprite.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +102,6 @@
 		67229CDF2155CF9D000675D1 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6722A1D6215B7B1C000675D1 /* csprite.cc */,
-				6722A1D7215B7B1C000675D1 /* csprite.h */,
 				67229CFD2156427B000675D1 /* cutils.c */,
 				67229CFE2156427B000675D1 /* cutils.h */,
 				67229CEC2155F0CC000675D1 /* engine.c */,
@@ -197,7 +192,6 @@
 				67229E582157DA59000675D1 /* tiledmap.cc in Sources */,
 				67229E38215725C4000675D1 /* game_res.c in Sources */,
 				67229CEE2155F0CC000675D1 /* engine.c in Sources */,
-				6722A1D8215B7B1C000675D1 /* csprite.cc in Sources */,
 				67229E6021592DD4000675D1 /* ltexture.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
