@@ -12,10 +12,18 @@
 #include <stdbool.h>
 #include <string.h>
 
+
 // strings
 #define streql(s1,s2) (strcmp((s1),(s2))==0)
+#ifdef __cplusplus
+// support C++
+extern "C" {
+#endif
 // files
 const char* get_filename_ext(const char *filename);
+#ifdef __cplusplus
+}
+#endif
 // random
 #define randint(x) rand() % (x)
 

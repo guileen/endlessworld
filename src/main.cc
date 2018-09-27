@@ -71,13 +71,13 @@ int main(int argc, const char * argv[]) {
     // Enter loading screen
     if(LoadingScreen()) return 1;
 
-    GameScean mainScean(gRenderer);
+    MainScean mainScean(gRenderer);
     
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
     emscripten_set_main_loop_arg(GameApp::loopFrame, NULL, 0, true);
 #else
-    GameLoop::run(&mainScean);
+    GameLoop::run(dynamic_cast<GameScean*>(&mainScean));
 #endif
     
     //Free resources and close SDL

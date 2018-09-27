@@ -9,33 +9,13 @@
 #ifndef game_h
 #define game_h
 #include "engine.h"
-#include <vector>
 
-class Sprite {
-    int x,y,w,h;
-protected:
-    void handleEvent();
-    void updateFrame();
-    void render();
-};
-
-class ComposedSprite {
-    std::vector<Sprite> children;
-protected:
-    void addSprite(Sprite sprite);
-};
-
-class GameScean {
-private:
-    ComposedSprite* rootNode;
-    SDL_Renderer* renderer;
+class MainScean: public GameScean {
 public:
-    GameScean(SDL_Renderer* _renderer) {
-        renderer = _renderer;
-    }
-    void handleInput();
-    void updateFrame();
+    MainScean(SDL_Renderer* r):GameScean(r){}
     void render();
+    void updateFrame();
+    void handleInput();
 };
 
 class GameObject: Sprite {
@@ -54,10 +34,4 @@ class Player:Character {
     
 };
 
-// work like a singleton.
-namespace GameLoop {
-    void run(GameScean*);
-    float getFPS();
-    void quit();
-}
 #endif /* game_h */

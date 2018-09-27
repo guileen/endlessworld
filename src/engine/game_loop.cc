@@ -7,7 +7,7 @@
 //
 
 #include "game.h"
-#include "tiledmap.h"
+
 // work like a singleton.
 namespace GameLoop {
     namespace {
@@ -31,8 +31,6 @@ namespace GameLoop {
         scean->updateFrame();
         // Render
         scean->render();
-        
-        renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
         
         // Calc FPS, Cap FPS
         _countedFrames ++;

@@ -7,8 +7,9 @@
 //
 
 #include "game.h"
+#include "tiledmap.h"
 
-void GameScean::handleInput() {
+void MainScean::handleInput() {
     //Event handler
     SDL_Event e;
     //Handle events on queue
@@ -61,10 +62,10 @@ void GameScean::handleInput() {
     }
 }
 
-void GameScean::updateFrame() {
+void MainScean::updateFrame() {
     
 }
 
-void GameScean::render() {
-    
+void MainScean::render() {
+    renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
 }
