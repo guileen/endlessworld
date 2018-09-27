@@ -8,18 +8,10 @@
 
 #include "tiledmap.h"
 #include <time.h>
-
-const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+#include "game.h"
 
 SDL_Texture* gSplash = NULL;
 SDL_Texture* gXOut = NULL;
-
-// fps counter
-Uint32 lastFrameTick = 0;
-Uint32 lastFPSTick = 0;
-int _countedFrames = 0;
-float currentFPS;
 
 bool loadMedia()
 {
@@ -43,8 +35,6 @@ int LoadingScreen() {
         printf( "Unable to load image %s! SDL Error: %s\n", "res/images/hello_world.png", SDL_GetError() );
         return -1;
     }
-    
-
     
     //Clear screen
     SDL_RenderClear( gRenderer );
@@ -74,91 +64,22 @@ int LoadingScreen() {
     return 0;
 }
 
-// return true for continue, false for quit
-bool MainLoop() {
-    //Event handler
-    SDL_Event e;
-    //Handle events on queue
-    while( SDL_PollEvent( &e ) != 0 )
-    {
-        //User requests quit
-        if( e.type == SDL_QUIT )
-        {
-            return false;
-        } else if (e.type == SDL_KEYDOWN) {
-            switch (e.key.keysym.sym) {
-                case SDLK_UP:
-                    printf("up pressed\n");
-                    break;
-                default:
-                    break;
-            }
-        } else if ( e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEWHEEL){
-//            int x, y;
-//            SDL_GetMouseState( &x, &y );
-//            handleMouseEvent(e, x, y);
-        } else if( e.type == SDL_JOYAXISMOTION ) {
-            // JoyStick support
-//            UpdateJoyStickStateByEvent(e, &xDir, &yDir, 8000);
-        } else if( e.type == SDL_JOYBUTTONDOWN ) {
-            //Joystick button press
-            //Play rumble at 75% strenght for 500 milliseconds
-            if( gControllerHaptic && SDL_HapticRumblePlay( gControllerHaptic, 0.75, 500 ) != 0 ) {
-                printf( "Warning: Unable to play rumble! %s\n", SDL_GetError() );
-            }
-        }
-    } //Apply the image
-    //Set texture based on current keystate
-    const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-    if( currentKeyStates[ SDL_SCANCODE_UP ] ) {
-        printf("up key down\n");
-    }
-    else if( currentKeyStates[ SDL_SCANCODE_DOWN ] ) {
-        printf("down key down\n");
-    }
-    else if( currentKeyStates[ SDL_SCANCODE_LEFT ] ) {
-        printf("left key down\n");
-    }
-    else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ) {
-        printf("right key down\n");
-    }
-    else {
-    }
-    // Update()
-
-    // Render
-    renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
-    // Calc FPS, Cap FPS
-    _countedFrames ++;
-    Uint32 currentTick = SDL_GetTicks();
-    Uint32 frameTick = currentTick - lastFrameTick;
-    if(currentTick-lastFPSTick > 500) {
-        currentFPS = _countedFrames * 1000.0 / (currentTick-lastFPSTick) ;
-        _countedFrames = 0;
-        lastFPSTick = currentTick;
-        printf("fps: %.2f\n", currentFPS);
-    }
-    if(frameTick < SCREEN_TICKS_PER_FRAME) {
-        SDL_Delay(SCREEN_TICKS_PER_FRAME-frameTick);
-    }
-    lastFrameTick = currentTick;
-    return true;
-}
-
 int main(int argc, const char * argv[]) {
     srand((int)time(NULL));   // should only be called once
     //Start up SDL and create window
     if(appInit("SDL tutorial", 800, 600, false)) return 1;
     // Enter loading screen
     if(LoadingScreen()) return 1;
-    lastFPSTick = SDL_GetTicks();
-    lastFrameTick = SDL_GetTicks();
+
+    GameScean mainScean(gRenderer);
+    
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
-    emscripten_set_main_loop_arg(MainLoop, NULL, 0, nk_true);
+    emscripten_set_main_loop_arg(GameApp::loopFrame, NULL, 0, true);
 #else
-    while(MainLoop());
+    GameLoop::run(&mainScean);
 #endif
+    
     //Free resources and close SDL
     return appQuit();
 }

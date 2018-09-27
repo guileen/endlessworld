@@ -18,6 +18,8 @@
 		6722A1F0215C8B8C000675D1 /* game_res.c in Sources */ = {isa = PBXBuildFile; fileRef = 6722A1E5215C8B8C000675D1 /* game_res.c */; };
 		6722A1F1215C8B8C000675D1 /* tiledmap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6722A1E9215C8B8C000675D1 /* tiledmap.cc */; };
 		6722A1F2215C8B8C000675D1 /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6722A1EB215C8B8C000675D1 /* main.cc */; };
+		6722A1F4215CD11B000675D1 /* game_scean.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6722A1F3215CD11B000675D1 /* game_scean.cc */; };
+		6722A1F6215CE43B000675D1 /* game_loop.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6722A1F5215CE43B000675D1 /* game_loop.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +55,8 @@
 		6722A1E9215C8B8C000675D1 /* tiledmap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiledmap.cc; sourceTree = "<group>"; };
 		6722A1EA215C8B8C000675D1 /* tiledmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiledmap.h; sourceTree = "<group>"; };
 		6722A1EB215C8B8C000675D1 /* main.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cc; sourceTree = "<group>"; };
+		6722A1F3215CD11B000675D1 /* game_scean.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_scean.cc; sourceTree = "<group>"; };
+		6722A1F5215CE43B000675D1 /* game_loop.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_loop.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 				6722A1E8215C8B8C000675D1 /* game.h */,
 				6722A1E9215C8B8C000675D1 /* tiledmap.cc */,
 				6722A1EA215C8B8C000675D1 /* tiledmap.h */,
+				6722A1F3215CD11B000675D1 /* game_scean.cc */,
+				6722A1F5215CE43B000675D1 /* game_loop.cc */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -220,7 +226,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6722A1F4215CD11B000675D1 /* game_scean.cc in Sources */,
 				6722A1ED215C8B8C000675D1 /* ltexture.cc in Sources */,
+				6722A1F6215CE43B000675D1 /* game_loop.cc in Sources */,
 				6722A1EE215C8B8C000675D1 /* cutils.c in Sources */,
 				6722A1F0215C8B8C000675D1 /* game_res.c in Sources */,
 				6722A1F1215C8B8C000675D1 /* tiledmap.cc in Sources */,

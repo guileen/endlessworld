@@ -8,14 +8,56 @@
 
 #ifndef game_h
 #define game_h
+#include "engine.h"
+#include <vector>
 
-class GameScean {
-    // vector<Sprite>
-    
-public:
-    handleEvent();
-    updateFrame();
-    render();
+class Sprite {
+    int x,y,w,h;
+protected:
+    void handleEvent();
+    void updateFrame();
+    void render();
 };
 
+class ComposedSprite {
+    std::vector<Sprite> children;
+protected:
+    void addSprite(Sprite sprite);
+};
+
+class GameScean {
+private:
+    ComposedSprite* rootNode;
+    SDL_Renderer* renderer;
+public:
+    GameScean(SDL_Renderer* _renderer) {
+        renderer = _renderer;
+    }
+    void handleInput();
+    void updateFrame();
+    void render();
+};
+
+class GameObject: Sprite {
+    int healthPoint;
+    int powerPoint;
+public:
+    void move();
+    void attack();
+};
+
+class Character:GameObject {
+    
+};
+
+class Player:Character {
+    
+};
+
+// work like a singleton.
+namespace GameLoop {
+    void run(GameScean*);
+    float getFPS();
+    void quit();
+}
 #endif /* game_h */
