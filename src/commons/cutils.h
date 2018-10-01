@@ -15,6 +15,8 @@
 
 // strings
 #define streql(s1,s2) (strcmp((s1),(s2))==0)
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y)) 
+#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y)) 
 #ifdef __cplusplus
 // support C++
 extern "C" {

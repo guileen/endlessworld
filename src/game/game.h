@@ -9,10 +9,15 @@
 #ifndef game_h
 #define game_h
 #include "engine.h"
+#include "world.h"
 
 class MainScean: public GameScean {
+    Sprite* player;
 public:
-    MainScean(SDL_Renderer* r):GameScean(r){}
+    MainScean(Renderer* r): GameScean(r){
+        init();
+    }
+    void init();
     void render();
     void updateFrame();
     void handleInput();

@@ -9,6 +9,18 @@
 #include "game.h"
 #include "tiledmap.h"
 
+
+void MainScean::init() {
+    Texture* texture = loadTexture("res/tiles/groud/1.png");
+    Texture* texture2 = loadTexture("res/tiles/groud/5.png");
+    Sprite* sprite = new Sprite(texture, 60, 60);
+    player = new Sprite(texture2, 60, 60);
+    sprite->x = 100;
+    sprite->y = 200;
+    addElement(sprite);
+    addElement(player);
+}
+
 void MainScean::handleInput() {
     //Event handler
     SDL_Event e;
@@ -46,19 +58,22 @@ void MainScean::handleInput() {
     } //Apply the image
     //Set texture based on current keystate
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-    if( currentKeyStates[ SDL_SCANCODE_UP ] ) {
+    const int speed = 2;
+    if( currentKeyStates[ SDL_SCANCODE_UP ] || currentKeyStates[SDL_SCANCODE_W] ) {
         printf("up key down\n");
+        player->y-=speed;
     }
-    else if( currentKeyStates[ SDL_SCANCODE_DOWN ] ) {
+    else if( currentKeyStates[ SDL_SCANCODE_DOWN ] || currentKeyStates[SDL_SCANCODE_S] ) {
         printf("down key down\n");
+        player->y+=speed;
     }
-    else if( currentKeyStates[ SDL_SCANCODE_LEFT ] ) {
+    if( currentKeyStates[ SDL_SCANCODE_LEFT ] || currentKeyStates[SDL_SCANCODE_A]) {
         printf("left key down\n");
+        player->x-=speed;
     }
-    else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ) {
+    else if( currentKeyStates[ SDL_SCANCODE_RIGHT ]  || currentKeyStates[SDL_SCANCODE_D]) {
         printf("right key down\n");
-    }
-    else {
+        player->x+=speed;
     }
 }
 
@@ -67,5 +82,6 @@ void MainScean::updateFrame() {
 }
 
 void MainScean::render() {
-    renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
+//    renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
+    
 }
