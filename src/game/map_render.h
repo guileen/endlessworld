@@ -7,7 +7,7 @@ typedef struct {
     double x;
     double y;
 } Position;
-const int TILES_EACH_ROW=0;
+const int TILES_EACH_ROW=20;
 class MapRenderer: public Element {
     // tiles size
     int tileWidth, tileHeight;
