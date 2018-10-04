@@ -9,21 +9,23 @@
 #ifndef game_h
 #define game_h
 #include "engine.h"
-#include "world.h"
+#include "map_render.h"
 
+class Player;
 class MainScean: public GameScean {
-    Sprite* player;
+    Player* player;
+    MapRenderer map;
 public:
-    MainScean(Renderer* r): GameScean(r){
-        init();
+    MainScean(Renderer* r, int w, int h): GameScean(r){
+        init(w, h);
     }
-    void init();
-    void render();
+    void init(int w, int h);
     void updateFrame();
     void handleInput();
+    void renderScean(Renderer* renderer);
 };
 
-class GameObject: Sprite {
+class GameObject: public Sprite {
     int healthPoint;
     int powerPoint;
 public:
@@ -31,12 +33,19 @@ public:
     void attack();
 };
 
-class Character:GameObject {
+class Character: public GameObject {
     
 };
 
-class Player:Character {
-    
+class Player: public Character {
+    double moveSpeed;
+    double maxMoveSpeed;
+    double angle=0;
+  public:
+    Position pos;
+    void updateFrame() {
+        
+    }
 };
 
 #endif /* game_h */

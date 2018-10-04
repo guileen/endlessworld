@@ -20,10 +20,10 @@
 		676978D1215D1E62008E7CF0 /* sdl2utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 676978CF215D1E62008E7CF0 /* sdl2utils.c */; };
 		676978DD215E40C9008E7CF0 /* asset_manager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 676978DB215E40C9008E7CF0 /* asset_manager.cc */; };
 		676978E0215E41CF008E7CF0 /* game_res.cc in Sources */ = {isa = PBXBuildFile; fileRef = 676978DE215E41CF008E7CF0 /* game_res.cc */; };
-		676978E3215FE001008E7CF0 /* world.cc in Sources */ = {isa = PBXBuildFile; fileRef = 676978E1215FE001008E7CF0 /* world.cc */; };
 		676978E62160ACD6008E7CF0 /* doom_random.c in Sources */ = {isa = PBXBuildFile; fileRef = 676978E42160ACD6008E7CF0 /* doom_random.c */; };
 		676978E92160AE20008E7CF0 /* well512_random.c in Sources */ = {isa = PBXBuildFile; fileRef = 676978E72160AE20008E7CF0 /* well512_random.c */; };
 		676978EC2160D2F3008E7CF0 /* gameutils.cc in Sources */ = {isa = PBXBuildFile; fileRef = 676978EA2160D2F3008E7CF0 /* gameutils.cc */; };
+		676978F0216334DB008E7CF0 /* world_map.cc in Sources */ = {isa = PBXBuildFile; fileRef = 676978EE216334DB008E7CF0 /* world_map.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,14 +64,15 @@
 		676978DC215E40C9008E7CF0 /* asset_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_manager.h; sourceTree = "<group>"; };
 		676978DE215E41CF008E7CF0 /* game_res.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_res.cc; sourceTree = "<group>"; };
 		676978DF215E41CF008E7CF0 /* game_res.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_res.h; sourceTree = "<group>"; };
-		676978E1215FE001008E7CF0 /* world.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cc; sourceTree = "<group>"; };
-		676978E2215FE001008E7CF0 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = world.h; sourceTree = "<group>"; };
 		676978E42160ACD6008E7CF0 /* doom_random.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = doom_random.c; sourceTree = "<group>"; };
 		676978E52160ACD6008E7CF0 /* doom_random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = doom_random.h; sourceTree = "<group>"; };
 		676978E72160AE20008E7CF0 /* well512_random.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = well512_random.c; sourceTree = "<group>"; };
 		676978E82160AE20008E7CF0 /* well512_random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = well512_random.h; sourceTree = "<group>"; };
 		676978EA2160D2F3008E7CF0 /* gameutils.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameutils.cc; sourceTree = "<group>"; };
 		676978EB2160D2F3008E7CF0 /* gameutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameutils.h; sourceTree = "<group>"; };
+		676978ED216334DB008E7CF0 /* map_render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map_render.h; sourceTree = "<group>"; };
+		676978EE216334DB008E7CF0 /* world_map.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world_map.cc; sourceTree = "<group>"; };
+		676978EF216334DB008E7CF0 /* world_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = world_map.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,12 +179,13 @@
 		676978BF215D1CB4008E7CF0 /* game */ = {
 			isa = PBXGroup;
 			children = (
+				676978ED216334DB008E7CF0 /* map_render.h */,
+				676978EE216334DB008E7CF0 /* world_map.cc */,
+				676978EF216334DB008E7CF0 /* world_map.h */,
 				676978DE215E41CF008E7CF0 /* game_res.cc */,
 				676978DF215E41CF008E7CF0 /* game_res.h */,
 				676978C0215D1CB4008E7CF0 /* game.h */,
 				676978C1215D1CB4008E7CF0 /* game_scean.cc */,
-				676978E1215FE001008E7CF0 /* world.cc */,
-				676978E2215FE001008E7CF0 /* world.h */,
 				676978C2215D1CB4008E7CF0 /* tiledmap.cc */,
 				676978C3215D1CB4008E7CF0 /* tiledmap.h */,
 				676978DB215E40C9008E7CF0 /* asset_manager.cc */,
@@ -259,10 +261,10 @@
 				676978CC215D1CB4008E7CF0 /* game_scean.cc in Sources */,
 				676978CE215D1CB4008E7CF0 /* main.cc in Sources */,
 				676978C9215D1CB4008E7CF0 /* game_loop.cc in Sources */,
+				676978F0216334DB008E7CF0 /* world_map.cc in Sources */,
 				676978DD215E40C9008E7CF0 /* asset_manager.cc in Sources */,
 				676978E62160ACD6008E7CF0 /* doom_random.c in Sources */,
 				676978CD215D1CB4008E7CF0 /* tiledmap.cc in Sources */,
-				676978E3215FE001008E7CF0 /* world.cc in Sources */,
 				676978E92160AE20008E7CF0 /* well512_random.c in Sources */,
 				676978E0215E41CF008E7CF0 /* game_res.cc in Sources */,
 			);

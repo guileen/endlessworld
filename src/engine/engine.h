@@ -28,7 +28,9 @@ class Sprite:public Element {
     SDL_Rect clip;
     int frame;
 public:
-    Sprite(Texture* _texture, int _w, int _h) {
+    ~Sprite() {}
+    Sprite(){}
+    void init(Texture* _texture, int _w, int _h) {
         texture = _texture;
         w = _w;
         h = _h;
@@ -37,7 +39,14 @@ public:
         clip.w=_w;
         clip.h=_h;
     }
-    ~Sprite() {}
+    void init(Texture* _texture, int x, int y, SDL_Rect* clip) {
+        texture = _texture;
+        this->x = x;
+        this->y = y;
+        this->w = clip->w;
+        this->h = clip->h;
+        this->clip = *clip;
+    }
     void updateFrame() {};
     void render(Renderer* renderer) {
         // TODO 获取正确坐标
@@ -68,7 +77,8 @@ public:
 class GameScean {
 private:
     Renderer* renderer;
-    ComposedElement root;
+protected:
+    virtual void renderScean(Renderer* renderer)=0;
 public:
     GameScean(Renderer* _renderer) {
         renderer = _renderer;
@@ -76,12 +86,9 @@ public:
     virtual ~GameScean() {};
     virtual void handleInput()=0;
     virtual void updateFrame()=0;
-    void addElement(Element* element) {
-        root.addElement(element);
-    }
     void render() {
         renderer->clear();
-        root.render(renderer);
+        renderScean(renderer);
         renderer->present();
     };
 };

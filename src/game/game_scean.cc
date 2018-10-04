@@ -8,17 +8,20 @@
 
 #include "game.h"
 #include "tiledmap.h"
+#include "world_map.h"
 
-
-void MainScean::init() {
-    Texture* texture = loadTexture("res/tiles/groud/1.png");
+void MainScean::init(int w, int h) {
+    // Texture* texture = loadTexture("res/tiles/groud/1.png");
+    // Sprite* sprite = new Sprite(texture, 60, 60);
+    // sprite->x = 100;
+    // sprite->y = 200;
+    // addElement(sprite);
     Texture* texture2 = loadTexture("res/tiles/groud/5.png");
-    Sprite* sprite = new Sprite(texture, 60, 60);
-    player = new Sprite(texture2, 60, 60);
-    sprite->x = 100;
-    sprite->y = 200;
-    addElement(sprite);
-    addElement(player);
+    player = new Player();
+    SDL_Rect r = {0,0,60,60};
+    player->init(texture2, w/2, h/2, &r);
+    map.initResolution(w, h);
+    map.initCenterPosition(0, 0);
 }
 
 void MainScean::handleInput() {
@@ -58,30 +61,32 @@ void MainScean::handleInput() {
     } //Apply the image
     //Set texture based on current keystate
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-    const int speed = 2;
+    const double speed = 0.025;
     if( currentKeyStates[ SDL_SCANCODE_UP ] || currentKeyStates[SDL_SCANCODE_W] ) {
         printf("up key down\n");
-        player->y-=speed;
+        player->pos.y-=speed;
     }
     else if( currentKeyStates[ SDL_SCANCODE_DOWN ] || currentKeyStates[SDL_SCANCODE_S] ) {
-        printf("down key down\n");
-        player->y+=speed;
+        printf("down key down %.3f\n", player->pos.y);
+        player->pos.y+=speed;
+        printf("down key down2 %.3f\n", player->pos.y);
     }
     if( currentKeyStates[ SDL_SCANCODE_LEFT ] || currentKeyStates[SDL_SCANCODE_A]) {
         printf("left key down\n");
-        player->x-=speed;
+        player->pos.x-=speed;
     }
     else if( currentKeyStates[ SDL_SCANCODE_RIGHT ]  || currentKeyStates[SDL_SCANCODE_D]) {
         printf("right key down\n");
-        player->x+=speed;
+        player->pos.x+=speed;
     }
 }
 
 void MainScean::updateFrame() {
-    
+    printf("update Center Position %.2f %.2f\n", player->pos.x, player->pos.y);
+    map.updateCenterPosition(player->pos.x, player->pos.y);
 }
 
-void MainScean::render() {
-//    renderWorld(800*2, 600*2, (800 - 640)/2, (600-480)/2 );
-    
+void MainScean::renderScean(Renderer* renderer) {
+    map.render(renderer);
+    player->render(renderer);
 }

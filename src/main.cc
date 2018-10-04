@@ -66,11 +66,11 @@ int LoadingScreen() {
 
 void test(int x, int y) {
     int cx, cy;
-    World::getRegionCenterPos(x,y,&cx,&cy);
+    WorldMap::getRegionCenterPos(x,y,&cx,&cy);
     // printf("x %d y %d cx %d cy %d\n", x, y, cx, cy);
 }
 
-void test2(int x, int y, World* world, int dx, int dy, int dw, int dh) {
+void test2(int x, int y, WorldMap* world, int dx, int dy, int dw, int dh) {
     world->updateCurrentRegion(x,y);
     world->debugPrint();
     Uint8 dst[9];
@@ -85,17 +85,22 @@ void test2(int x, int y, World* world, int dx, int dy, int dw, int dh) {
 }
 
 int main(int argc, const char * argv[]) {
+    int i = -0.5;
+    int j = 0.5;
+    printf("i %d j%d floor(-0.5) %d floor(0.5) %d\n", i, j, (int)floor(-0.5), (int)floor(0.5));
+//    return 0;
+    /*
     for(int i=-16;i<16;i++) {
         test(i, i);
     }
 
-    World world;
+    WorldMap world;
     world.initRegions(0,0);
     test2(0, 0, &world, -1,-1,3,3);
     test2(0, 0, &world, 0,0,3,3);
     test2(4, 0, &world, 6, 1, 3, 3);
     test2(4, 4, &world, 0,0,3,2);
-    return 0;
+    */
 
     /*
     test(0,0);
@@ -117,7 +122,7 @@ int main(int argc, const char * argv[]) {
     // Enter loading screen
     if(LoadingScreen()) return 1;
 
-    MainScean mainScean(window.getRenderer());
+    MainScean mainScean(window.getRenderer(), 1600, 1200);
     
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>

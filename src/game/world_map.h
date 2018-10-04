@@ -9,8 +9,8 @@
 // 1024*1024 个区域，每个区域 1024*1024个方格。
 // 玩家在当前区域，则渲染当前区域，及相邻区域
 
-#ifndef world_h
-#define world_h
+#ifndef world_map_h
+#define world_map_h
 
 #include <assert.h>
 #include <stdio.h>
@@ -19,16 +19,18 @@
 
 typedef uint8_t Uint8;
 
-const int _rsize = 4;
-const int REGION_WIDTH=_rsize;
-const int REGION_HEIGHT=_rsize;
-const int REGION_HALF_WIDTH = REGION_WIDTH/2;
-const int REGION_HALF_HEIGHT = REGION_HEIGHT/2;
-const int REGION_SWITCH_STEPS = REGION_WIDTH/2 + REGION_WIDTH/4;
-const int REGION_DATA_EXTRA_LENGTH = 0;
-const size_t REGION_DATA_SIZE = REGION_WIDTH * REGION_HEIGHT + REGION_DATA_EXTRA_LENGTH;
 
-class World {
+class WorldMap {
+    static const int _rsize = 1024;
+    static const int REGION_DATA_EXTRA_LENGTH = 0;
+public:
+    static const int REGION_WIDTH = _rsize;
+    static const int REGION_HEIGHT = _rsize;
+    static const size_t REGION_DATA_SIZE = REGION_WIDTH * REGION_HEIGHT + REGION_DATA_EXTRA_LENGTH;
+private:
+    static const int REGION_HALF_WIDTH = REGION_WIDTH / 2;
+    static const int REGION_HALF_HEIGHT = REGION_HEIGHT / 2;
+    static const int REGION_SWITCH_STEPS = REGION_WIDTH / 2 + REGION_WIDTH / 4;
     // 需要加载左上，上，右上，左中，中，右中，下左，下中，下右，9个区域到内存中
     // 当从一个区域进入另一个区域1/4的深度(256)后（避免在边界移动，频繁发生切换，见下文），
     // 即将中心区域切换到另一个区域，其中6个区域信息仍然可用，不必重新加载
@@ -41,14 +43,14 @@ class World {
     int centerRegionX=0, centerRegionY=0; // regions[4] 中心点
 
 public:
-    World() {
+    WorldMap() {
         page = (Uint8*) malloc(9*REGION_DATA_SIZE);
         for(int i=0;i<9;i++) {
             regions[i] = page + i*REGION_DATA_SIZE;
         }
         currentRegion = regions[4];
     }
-    ~World() {
+    ~WorldMap() {
         free(page);
     }
     
@@ -168,7 +170,7 @@ public:
         for(int x=0;x<REGION_WIDTH;x++) {
             for(int y=0;y<REGION_HEIGHT;y++) {
                 n = well512_genU32(&ws);
-                data[y*REGION_WIDTH+x] = n & 0xff;
+                data[y*REGION_WIDTH+x] = n % 9;
             }
         }
     }
@@ -223,8 +225,8 @@ public:
                     for(int xi=0; xi<w; xi++) {
                         int di = (dt+yi)*width+xi+dl;
                         int si = (t+yi)*REGION_WIDTH+l+xi;
-                        printf("di %d si %d index %d xi %d yi %d l %d t %d dl %d dt %d\n", di, si, index, xi, yi, l, t, dl, dt);
-                        printf("value %02x\n", regions[index][si]);
+                        // printf("di %d si %d index %d xi %d yi %d l %d t %d dl %d dt %d\n", di, si, index, xi, yi, l, t, dl, dt);
+                        // printf("value %02x\n", regions[index][si]);
                         dst[di] = regions[index][(t+yi)*REGION_WIDTH+l+xi];
                     }
                 }
@@ -329,4 +331,4 @@ public:
     }
 };
 
-#endif /* world_h */
+#endif /* world_map_h */
