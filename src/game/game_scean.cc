@@ -7,7 +7,6 @@
 //
 
 #include "game.h"
-#include "tiledmap.h"
 #include "world_map.h"
 
 void MainScean::init(int w, int h) {

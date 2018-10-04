@@ -6,26 +6,10 @@
 //  Copyright © 2018年 林 桂. All rights reserved.
 //
 
-#include "tiledmap.h"
 #include <time.h>
 #include "game.h"
 
 SDL_Texture* gSplash = NULL;
-SDL_Texture* gXOut = NULL;
-
-bool loadMedia()
-{
-    //Loading success flag
-    bool success = true;
-    gXOut = loadTexture("res/images/xout.bmp");
-    if( gXOut == NULL )
-    {
-        printf( "Unable to load image %s! SDL Error: %s\n", "res/images/xout.png", SDL_GetError() );
-        success = false;
-    }
-    for(int i=1;i<=10;i++) loadTileSurface(i);
-    return success;
-}
 
 int LoadingScreen() {
     //Load splash image
@@ -48,18 +32,7 @@ int LoadingScreen() {
     Blit(txt, NULL, &dstRect);
     //Update the surface
     UpdateScreen();
-    
-    //Load media
-    if( !loadMedia() )
-    {
-        printf( "Failed to load media!\n" );
-        return -1;
-    }
-    
     //Wait two seconds
-    SDL_Delay( 0 );
-    BlitScaled( gXOut, NULL, NULL );
-    UpdateScreen();
     SDL_Delay( 0 );
     return 0;
 }

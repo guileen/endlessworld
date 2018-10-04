@@ -11,4 +11,9 @@
 
 #include "engine.h"
 
+typedef struct {
+    double x;
+    double y;
+} Position;
+
 #endif /* gameutils_h */

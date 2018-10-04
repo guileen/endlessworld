@@ -2,11 +2,8 @@
 #define map_render_h
 #include "world_map.h"
 #include "engine.h"
+#include "game_commons.h"
 
-typedef struct {
-    double x;
-    double y;
-} Position;
 const int TILES_EACH_ROW=20;
 class MapRenderer: public Element {
     // tiles size
