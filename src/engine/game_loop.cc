@@ -12,7 +12,7 @@
 namespace GameLoop {
     namespace {
         // local access
-        GameScean* scean;
+        Scean* scean;
         bool running = true;
 
         const int SCREEN_FPS = 60;
@@ -26,15 +26,15 @@ namespace GameLoop {
     }
     
     inline void updateFrame() {
+        Uint32 currentTick = SDL_GetTicks();
         scean->handleInput();
         // Update()
-        scean->updateFrame();
+        scean->updateFrame(currentTick);
         // Render
         scean->render();
         
         // Calc FPS, Cap FPS
         _countedFrames ++;
-        Uint32 currentTick = SDL_GetTicks();
         Uint32 frameTick = currentTick - lastFrameTick;
         if(currentTick-lastFPSTick > 500) {
             FPS = _countedFrames * 1000.0 / (currentTick-lastFPSTick) ;
@@ -50,7 +50,7 @@ namespace GameLoop {
     
 }
 
-void GameLoop::run(GameScean* _scean) {
+void GameLoop::run(Scean* _scean) {
     scean = _scean;
     lastFPSTick = SDL_GetTicks();
     lastFrameTick = SDL_GetTicks();

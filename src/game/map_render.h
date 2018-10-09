@@ -23,7 +23,7 @@ public:
   void loadTiles() {
       if (loaded) return;
       char buff[255];
-      for (int i = 0; i < 255; i++) {
+      for (int i = 0; i < 20; i++) {
           sprintf(buff, "res/tiles/groud/%d.png\0", i);
           TILES[i] = loadTexture(buff);
       }
@@ -34,20 +34,15 @@ public:
         loadTiles();
     };
 
-    void initResolution(int screenWidth, int screenHeight) {
-        initResolution(screenWidth, screenHeight, TILES_EACH_ROW, 60, 60);
-    }
-
-    void initResolution(int screenWidth, int screenHeight, int tilesEachRow, int tileWidth, int tileHeight) {
+    void initResolution(int screenWidth, int screenHeight, int tileWidth, int tileHeight, int screenTileWidth, int screenTileHeight) {
         this->screenWidth = screenWidth;
         this->screenHeight = screenHeight;
         this->tileWidth = tileWidth;
         this->tileHeight = tileHeight;
-        this->screenTileWidth = screenWidth / tilesEachRow;
-        // 等比缩放
-        this->screenTileHeight = screenTileWidth*tileHeight/tileWidth;
-        dataRect.w = ceil((float)screenWidth/ screenTileWidth) + 1;
-        dataRect.h = ceil((float)screenHeight/screenTileHeight) + 1;
+        this->screenTileWidth = screenTileWidth == 0? tileWidth: screenTileWidth;
+        this->screenTileHeight = screenTileHeight == 0? tileHeight: screenTileHeight;
+        dataRect.w = ceil((float)screenWidth/ this->screenTileWidth) + 1;
+        dataRect.h = ceil((float)screenHeight/this->screenTileHeight) + 1;
     }
 
     void initCenterPosition(double x, double y) {
@@ -73,7 +68,7 @@ public:
         double top = centerY - screenHeight/2.0/screenTileHeight;
         int screenLeft = (floor(left) - left) * screenTileWidth;
         int screenTop = (floor(top) - top) * screenTileHeight;
-        printf("left %.2f top %.2f screenLeft %d screenTop %d\n", left, top ,screenLeft, screenTop);
+        // printf("left %.2f top %.2f screenLeft %d screenTop %d\n", left, top ,screenLeft, screenTop);
 
         SDL_Rect srcRect = {0, 0, tileWidth, tileHeight};
         SDL_Rect dstRect = {screenLeft, screenTop, screenTileWidth, screenTileHeight};

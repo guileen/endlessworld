@@ -164,7 +164,7 @@ public:
     
     void loadRegion(Uint8* data, int x, int y) {
         uint32_t n, id = getRegionId(x, y);
-        printf("loadRegion %d %d id %d\n", x, y, id);
+        // printf("loadRegion %d %d id %d\n", x, y, id);
         Well512 ws;
         well512_init(&ws, id);
         for(int x=0;x<REGION_WIDTH;x++) {
@@ -177,7 +177,7 @@ public:
 
     // 将 left, top, w, h 围成的区域数据复制到 dst 中
     void copyRectBlock(int left, int top, int width, int height, Uint8* dst) {
-        printf("copyRectBlock %d %d %d %d\n", left, top, width, height);
+        // printf("copyRectBlock %d %d %d %d\n", left, top, width, height);
         assert(width<REGION_WIDTH);
         assert(height<REGION_HEIGHT);
         // 性能优化，不必每次都getRegionBlock, 对于大块连续区域，可以把一整个区域内的数据都先复制过来。
@@ -215,7 +215,7 @@ public:
         int t = (top+REGION_HALF_HEIGHT) % REGION_HEIGHT;
         int l = (left+REGION_HALF_WIDTH) % REGION_WIDTH;
         int dl=0, dt=0;
-        printf("top %d t %d h %d\n", top, t, h);
+        // printf("top %d t %d h %d\n", top, t, h);
         h = MIN(srcBottom - top + 1, h);
         w = MIN(srcRight - left + 1, w);
         do {

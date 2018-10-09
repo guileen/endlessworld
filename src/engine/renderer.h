@@ -19,6 +19,9 @@ public:
     Renderer(SDL_Renderer* sdl_renderer) {
         rdr = sdl_renderer;
     }
+    SDL_Renderer* _getSDLRenderer() {
+        return rdr;
+    }
     void clear() {
         SDL_RenderClear(rdr);
     }

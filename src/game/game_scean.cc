@@ -6,24 +6,24 @@
 //  Copyright © 2018年 林 桂. All rights reserved.
 //
 
-#include "game.h"
+#include "game_scean.h"
 #include "world_map.h"
 
-void MainScean::init(int w, int h) {
-    // Texture* texture = loadTexture("res/tiles/groud/1.png");
-    // Sprite* sprite = new Sprite(texture, 60, 60);
-    // sprite->x = 100;
-    // sprite->y = 200;
-    // addElement(sprite);
-    Texture* texture2 = loadTexture("res/tiles/groud/5.png");
-    player = new Player();
-    SDL_Rect r = {0,0,60,60};
-    player->init(texture2, w/2, h/2, &r);
-    map.initResolution(w, h);
+void GameScean::init(int w, int h) {
+    screenWidth = w;
+    screenHeight = h;
+    hUnitPixels = 120;
+    vUnitPixels = 120;
+    player = new Player(this, 1, 0);
+    addMob(1, 1.5, 1.5);
+    addMob(2, 3.3, 3.6);
+    addMob(1, 2.3, -1.6);
+    addMob(2, 1.3, -3.6);
+    map.initResolution(w, h, 60, 60, 120, 120);
     map.initCenterPosition(0, 0);
 }
 
-void MainScean::handleInput() {
+void GameScean::handleInput() {
     //Event handler
     SDL_Event e;
     //Handle events on queue
@@ -80,12 +80,21 @@ void MainScean::handleInput() {
     }
 }
 
-void MainScean::updateFrame() {
-    printf("update Center Position %.2f %.2f\n", player->pos.x, player->pos.y);
-    map.updateCenterPosition(player->pos.x, player->pos.y);
+void GameScean::updateFrame(uint32_t tick) {
+    player->updateFrame(tick);
+    for(auto& mob: mobs) {
+        printf("update mob type\n");
+        mob->updateFrame(tick);
+    }
 }
 
-void MainScean::renderScean(Renderer* renderer) {
+void GameScean::renderScean(Renderer* renderer) {
+    // update screenCenter before render
+    screenCenter = player->pos;
+    map.updateCenterPosition(screenCenter.x, screenCenter.y);
     map.render(renderer);
     player->render(renderer);
+    for(auto& mob: mobs) {
+        mob->render(renderer);
+    }
 }

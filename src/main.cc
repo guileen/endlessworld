@@ -95,7 +95,7 @@ int main(int argc, const char * argv[]) {
     // Enter loading screen
     if(LoadingScreen()) return 1;
 
-    MainScean mainScean(window.getRenderer(), 1600, 1200);
+    GameScean mainScean(window.getRenderer(), 1600, 1200);
     
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>

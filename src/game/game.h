@@ -11,20 +11,5 @@
 #include "engine.h"
 #include "map_render.h"
 #include "game_object.h"
-
-class MainScean: public GameScean {
-    Player* player;
-    MapRenderer map;
-public:
-    MainScean(Renderer* r, int w, int h): GameScean(r){
-        init(w, h);
-    }
-    void init(int w, int h);
-    void updateFrame();
-    void handleInput();
-    void renderScean(Renderer* renderer);
-};
-
-
-
+#include "game_scean.h"
 #endif /* game_h */
