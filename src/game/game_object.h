@@ -47,8 +47,8 @@ enum GOState {
 enum EAIState {
     AI_STATE_MOVING=0,
     AI_STATE_LOOKAROUND=1,
-    AI_STATE_CHASING,
-    AI_STATE_CHASING_BACK,
+    AI_STATE_COMBAT,
+    AI_STATE_LEAVE_COMBAT,
     AI_STATE_GOSSIP,
 };
 
@@ -62,6 +62,7 @@ typedef struct {
     EAIState state;
     Position aroundPos;
     Position targetPos;
+    uint32_t globalCooldownTick;
     uint32_t endTick;
 } AIState;
 
@@ -72,6 +73,12 @@ protected:
     int healthPoint;
     int maxHealthPoint;
     int powerPoint;
+    Character* target;
+    bool isAttacking = false;
+    int attackFrames = 20;
+    int attackHitFrame = 5;
+    int damage = 1;
+    int currentFrame = 0;
 public:
     HealthBar healthBar;
     Character(GameScean* scean, int id, double x, double y) {
@@ -90,17 +97,30 @@ public:
             aiState.aroundPos = pos;
             aiState.endTick = 0;
         }
-        healthPoint = 50;
+        healthPoint = 100;
         maxHealthPoint = 100;
         healthBar.align = ALIGN_TOP | ALIGN_MIDDLE;
         healthBar.y = -10;
-        healthBar.w = w;
+        healthBar.w = w+20;
         healthBar.h = 10;
         healthBar.parent = this;
         healthBar.current = &healthPoint;
         healthBar.max = &maxHealthPoint;
     }
     void updateFrame(uint32_t tick); 
+    void attack(GameObject* target) {
+        // check if target is attackable.
+        // start attack action
+        isAttacking = true;
+        currentFrame = 0;
+    }
+    void onHit(int damage) {
+        healthPoint -= damage;
+        if(healthPoint <= 0) {
+            // do dead.
+            printf("dead!!!");
+        }
+    }
     void draw(Renderer* renderer) {
         GameObject::draw(renderer);
         healthBar.render(renderer);
