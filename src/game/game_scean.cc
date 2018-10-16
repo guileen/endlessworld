@@ -31,7 +31,7 @@ void GameScean::handleInput() {
     {
         //User requests quit
         if( e.type == SDL_QUIT ) {
-            GameLoop::quit();
+            sceanManager->quit();
         }
         Uint32 type = e.type;
         if (type == SDL_KEYDOWN) {
@@ -88,7 +88,7 @@ void GameScean::updateFrame(uint32_t tick) {
     }
 }
 
-void GameScean::renderScean(Renderer* renderer) {
+void GameScean::render(Renderer* renderer) {
     // update screenCenter before render
     screenCenter = player->pos;
     map.updateCenterPosition(screenCenter.x, screenCenter.y);

@@ -5,6 +5,7 @@
 #include <vector>
 
 class GameScean: public Scean {
+    SceanManager* sceanManager;
     std::vector<Character*> mobs;
     MapRenderer map;
     Position screenCenter;
@@ -14,8 +15,11 @@ class GameScean: public Scean {
     int vUnitPixels; // 垂直1.0对应的像素
 public:
     Player* player;
-    GameScean(Renderer* r, int w, int h): Scean(r){
-        init(w, h);
+    void load(SceanManager* manager) {
+        init(manager->getScreenWidth(), manager->getScreenHeight());
+        sceanManager = manager;
+    }
+    void unload() {
     }
     void positionToScreen(Position pos, int* screenX, int* screenY) {
         *screenX = (pos.x - screenCenter.x) * hUnitPixels + screenWidth/2;
@@ -29,7 +33,7 @@ public:
     }
     void updateFrame(uint32_t tick);
     void handleInput();
-    void renderScean(Renderer* renderer);
+    void render(Renderer* renderer);
 };
 
 #endif
