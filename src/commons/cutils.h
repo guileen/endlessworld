@@ -29,4 +29,11 @@ const char* get_filename_ext(const char *filename);
 // random
 #define randint(x) rand() % (x)
 
+
+const char *get_filename_ext(const char *filename) {
+    const char *dot = strrchr(filename, '.');
+    if(!dot || dot == filename) return "";
+    return dot + 1;
+}
+
 #endif /* cutils_h */

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "35869A91FA9F14C71805731347B0BEF1AEE24D17",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "35869A91FA9F14C71805731347B0BEF1AEE24D17" : 9223372036854775807,
+    "22CEE8E21F0C7E062328E1EFD0642C92627E67DF" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C2F6478C-F9E7-4AC2-BCD6-B4E572F73B94",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "35869A91FA9F14C71805731347B0BEF1AEE24D17" : "endlessworld\/",
+    "22CEE8E21F0C7E062328E1EFD0642C92627E67DF" : "endlessworld\/deps\/sds\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "endlessworld",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "osx\/endlessworld.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:antirez\/sds.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "22CEE8E21F0C7E062328E1EFD0642C92627E67DF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:guileen\/endlessworld.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "35869A91FA9F14C71805731347B0BEF1AEE24D17"
+    }
+  ]
+}
