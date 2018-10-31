@@ -12,7 +12,7 @@
 #ifndef world_map_h
 #define world_map_h
 
-//#include <assert.h>
+#include <assert.h>
 #include <stdio.h>
 #include "../commons/cutils.h"
 #include "../commons/well512_random.h"

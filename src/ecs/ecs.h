@@ -1,9 +1,12 @@
 //  https://www.youtube.com/watch?v=QAmtgvwHInM
+#ifndef _ECS_H_
+#define _ECS_H_
 #pragma once
 #include <assert.h>
 #include <vector>
 #include <bitset>
 #include <array>
+#include <map>
 
 namespace ecs {
 
@@ -107,6 +110,7 @@ class Manager {
 private:
     std::vector<std::unique_ptr<Entity>> entities;
     std::array<std::vector<Entity*>, maxGroups> groupEntities;
+    std::map<EID, Entity*> entityMap;
     Entity* player;
 public:
     friend void Entity::addGroup(Group) noexcept;
@@ -115,7 +119,12 @@ public:
         Entity* e = new Entity(this);
         std::unique_ptr<Entity> p{e};
         entities.emplace_back(std::move(p));
+        entityMap[e->getId()] = e;
         return *e;
+    }
+
+    Entity *getEntity(EID id) {
+        return entityMap[id];
     }
 
     void setPlayer(Entity* e) {
@@ -166,6 +175,11 @@ public:
             [](const std::unique_ptr<Entity> &mEntity) {
                 return !mEntity->isActive();
         }), std::end(entities));
+        for(auto &p: entityMap) {
+            if(!p.second->isActive()) {
+                entityMap.erase(p.first);
+            }
+        }
     }
 };
 
@@ -175,3 +189,4 @@ void Entity::addGroup(Group g) noexcept{
 }
 
 }
+#endif //_ECS_H_

@@ -1,0 +1,33 @@
+
+Graphic:
+    ☐ z order of entities. sorting.
+    ☐ Attack Animation
+
+Gameplay:
+    ✔ Movement @done(18-10-26 07:26)
+    ☐ Combat System
+        ☐ Health / Dead
+        ☐ Attack / CD
+        ☐ Spell cast / CD
+        ☐ Defends
+        ☐ Buff/Aura.
+    ☐ Combat AI
+        ☐ Chasing player.
+            ☐ Chasing enemy.
+    ☐ Talent System
+    ☐ Item System
+    ☐ Equipment System
+    ☐ Trade system
+    ☐ Quest System?
+
+GUI:
+    ✔ HPBar @done(18-10-26 07:23)
+    ☐ virtual controller
+    ☐ Element UI: a very simple UI framework
+
+Network:
+    ☐ UDP base network protocol.
+
+ECS:
+    ☐ sort entities with comparor
+    ☐ pub/sub Event system

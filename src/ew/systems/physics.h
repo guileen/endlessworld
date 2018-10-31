@@ -1,5 +1,5 @@
 #pragma once
-#include "../components/components.h"
+#include "../components/combat.h"
 
 using namespace ecs;
 

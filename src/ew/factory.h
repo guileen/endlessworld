@@ -1,7 +1,7 @@
 #pragma once
 #include "../ecs/ecs.h"
-#include "./components/components.h"
-#include "./components/graphic_components.h"
+#include "./components/combat.h"
+#include "./components/sprite.h"
 #include "../commons/sdl2utils.h"
 
 using namespace ecs;
