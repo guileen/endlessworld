@@ -21,6 +21,8 @@ private:
     int _countedFrames = 0;
     float FPS;
 
+    // disable default constructors.
+    GameWindow(){};
   public:
     GameWindow(const char* title, int width, int height, bool fullscreen) {
         appInit(title, width, height, fullscreen);

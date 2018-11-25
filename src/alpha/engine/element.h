@@ -56,7 +56,7 @@ public:
     int x=0, y=0, w=0, h=0;
     Element* parent=NULL;
     bool visible = true;
-    virtual void updateFrame(uint32_t tick) {};
+    virtual void updateFrame() {};
     virtual void render(Renderer* r) {
         if(!visible) return;
         updateScreenPos();
@@ -70,7 +70,7 @@ class Sprite:public Element {
     int frame;
 public:
     ~Sprite() {}
-    Sprite(){}
+    Sprite() {}
     void init(Texture* _texture, int _w, int _h) {
         texture = _texture;
         w = _w;
@@ -88,7 +88,7 @@ public:
         this->h = clip->h;
         this->clip = *clip;
     }
-    void updateFrame(uint32_t tick) {};
+    void updateFrame() {};
     void draw(Renderer* renderer) {
         // TODO 获取正确坐标
         SDL_Rect dst = {screenX, screenY, w, h};

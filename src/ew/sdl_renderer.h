@@ -16,7 +16,11 @@ public:
     }
     void renderRect(Rect* rect, Color c) {
         // no need to preserve color.
+#ifdef __EMSCRIPTEN__
+        SDL_SetRenderDrawColor(renderer, c.r, c.g, c.b, 255);
+#else
         SDL_SetRenderDrawColor(renderer, c.r, c.g, c.b, c.a);
+#endif
         SDL_RenderFillRect(renderer, rect);
     }
     void renderText(const char*) {}

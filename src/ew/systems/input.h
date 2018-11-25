@@ -51,15 +51,19 @@ void handleInputEvent() {
             //            int x, y;
             //            SDL_GetMouseState( &x, &y );
             //            handleMouseEvent(e, x, y);
-        } else if( type == SDL_JOYAXISMOTION ) {
+        }
+#ifndef __EMSCRIPTEN__
+        else if( type == SDL_JOYAXISMOTION ) {
             // JoyStick support
             //            UpdateJoyStickStateByEvent(e, &xDir, &yDir, 8000);
         } else if( type == SDL_JOYBUTTONDOWN ) {
             //Joystick button press
             //Play rumble at 75% strenght for 500 milliseconds
+            
             if( gControllerHaptic && SDL_HapticRumblePlay( gControllerHaptic, 0.75, 500 ) != 0 ) {
                 printf( "Warning: Unable to play rumble! %s\n", SDL_GetError() );
             }
         }
+#endif
     } //Apply the image
 }

@@ -34,7 +34,7 @@ class EndlessWorld: public GameWindow {
     CombatSystem combatSystem;
 public:
     EndlessWorld(int width, int height) : GameWindow("endless_world", width, height, false)
-    , graphicSystem{manager, *renderer, width*2, height*2}
+    , graphicSystem{manager, *renderer, width, height}
     , combatSystem{manager}
     {
         start(renderer);

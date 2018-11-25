@@ -1,5 +1,9 @@
 #pragma once
 #include "sdl_renderer.h"
+// Include the Emscripten library only if targetting WebAssembly
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
 
 class GameWindow {
 private:
@@ -53,7 +57,11 @@ public:
         return screenHeight;
     }
     void quit() {
+        #ifdef __EMSCRIPTEN__
+        emscripten_force_exit(1);
+        #else
         running = false;
+        #endif
     }
 
     // Game loop

@@ -15,6 +15,7 @@
 
 #ifndef sdl2utils_h
 #define sdl2utils_h
+#include <stdio.h>
 #include <stdbool.h>
 #include "cutils.h"
 
@@ -41,7 +42,7 @@
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
 
-
+#define FONT_DEFAULT "/Library/Fonts/Arial.ttf"
 #endif /* __APPLE__ */
 
 typedef SDL_Rect GRect;
@@ -51,7 +52,9 @@ extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern SDL_GLContext* glContext;
 //extern SDL_Surface* gScreen;
+#ifndef __EMSCRIPTEN__
 extern SDL_Haptic* gControllerHaptic;
+#endif
 
 
 #ifdef USE_SDL_SURFACE
@@ -93,15 +96,19 @@ TTF_Font *gFont = NULL;
 SDL_Renderer* gRenderer;
 SDL_GLContext* glContext;
 // GameController 1 handler, just for demo
+#ifndef __EMSCRIPTEN__
 SDL_Joystick* gGameController = NULL;
 SDL_Haptic* gControllerHaptic = NULL;
+#endif
 
 int appInit(const char* title, int width, int height, bool fullscreen) {
     /* GUI */
     //    struct nk_context *ctx;
     //    SDL_GLContext glContext;
     /* SDL setup */
+#ifndef __EMSCRIPTEN__
     SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
+#endif
     
     //Initialization flag
     int flag=SDL_Init( SDL_INIT_EVERYTHING ); /*// - do NOT init SDL on GL ES 2*/
@@ -111,14 +118,17 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
         return 1;
     }
     
+#ifndef __EMSCRIPTEN__
     SDL_GL_SetAttribute (SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
     SDL_GL_SetAttribute (SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+#endif
     
     //Create window
-    gWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI );
+    gWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 
+        SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN/*|SDL_WINDOW_ALLOW_HIGHDPI*/ );
     if( gWindow == NULL )
     {
         printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -149,6 +159,7 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
      }
      */
     //Check for joysticks
+#ifndef __EMSCRIPTEN__
     if( SDL_NumJoysticks() >= 1 ) {
         //Load joystick
         gGameController = SDL_JoystickOpen( 0 );
@@ -168,6 +179,7 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
         }
         
     }
+#endif
     // initialize sub-system.
     int imgFlags = IMG_INIT_PNG;
     if( !( IMG_Init( imgFlags ) & imgFlags ) ) {
@@ -189,6 +201,7 @@ int appInit(const char* title, int width, int height, bool fullscreen) {
 
 int appQuit() {
     printf("TODO: FreeSurface(all loaded resources)");
+#ifndef __EMSCRIPTEN__
     if(gGameController) {
         SDL_JoystickClose( gGameController );
         gGameController = NULL;
@@ -197,6 +210,7 @@ int appQuit() {
             gControllerHaptic = NULL;
         }
     }
+#endif
     
     SDL_DestroyRenderer( gRenderer );
     //Destroy window

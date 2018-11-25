@@ -1,6 +1,7 @@
 #ifndef map_render_h
 #define map_render_h
 #include "world_map.h"
+#include <math.h>
 
 const int TILES_EACH_ROW=20;
 
