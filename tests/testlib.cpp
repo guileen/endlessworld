@@ -7,6 +7,5 @@ TEST_CASE( "Quick check", "[main]" ) {
     auto [mean, moment] = accumulate_vector(values);
 
     REQUIRE( mean == 2.0 );
-    REQUIRE( mean == 2.1 );
     REQUIRE( moment == Approx(4.666666) );
 }

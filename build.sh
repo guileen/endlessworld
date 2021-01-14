@@ -5,3 +5,5 @@ cd build
 cmake ..
 make
 make test
+# ./apps/app
+./apps/hello-triangle
