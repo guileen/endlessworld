@@ -1,9 +1,10 @@
 #!/bin/sh
-# rm -rf build
+rm -rf build
 mkdir -p build
 cd build
 cmake ..
 make
-make test
+# make test
 # ./apps/app
-./apps/hello-triangle
+# ./apps/hello-triangle
+./apps/shader

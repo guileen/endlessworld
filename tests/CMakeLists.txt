@@ -1,10 +1,14 @@
 # Testing library
-FetchContent_Declare(
-  catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG v2.9.1)
-FetchContent_MakeAvailable(catch2)
+# FetchContent_Declare(
+#   catch2
+#   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+#   GIT_TAG v2.9.1)
+# FetchContent_MakeAvailable(catch2)
 # Adds Catch2::Catch2
+
+# OR
+# add_subdirectory("../thirdparty/catch2")
+# include_directories("../thirdparty/catch2/src")
 
 # Tests need to be added as executables first
 add_executable(testlib testlib.cpp)

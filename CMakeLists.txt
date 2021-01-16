@@ -28,18 +28,31 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 endif()
 
+# GLM
+# find_package(glm REQUIRED)
+# add_subdirectory(thirdparty/glm)
+
 find_package(glfw3 3.3 REQUIRED)
+
+# GLAD
+add_library(GLAD "thirdparty/glad/glad.c")
 
 find_package(Boost REQUIRED)
 
 include(FetchContent)
 
 # Formatting library, adds fmt::fmt
-FetchContent_Declare(
-  fmtlib
-  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  GIT_TAG 7.0.2)
-FetchContent_MakeAvailable(fmtlib)
+# FetchContent_Declare(
+#   fmtlib
+#   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+#   GIT_TAG 7.0.2)
+# FetchContent_MakeAvailable(fmtlib)
+
+include_directories(
+  "${CMAKE_SOURCE_DIR}/include"
+  # 使用源码导入
+  "${CMAKE_SOURCE_DIR}/thirdparty/glm"
+)
 
 add_subdirectory(src)
 
@@ -47,5 +60,5 @@ add_subdirectory(apps)
 
 # Testing only available if this is the main app
 if(BUILD_TESTING)
-  add_subdirectory(tests)
+  # add_subdirectory(tests)
 endif()
