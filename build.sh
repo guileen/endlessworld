@@ -7,4 +7,5 @@ make
 # make test
 # ./apps/app
 # ./apps/hello-triangle
-./apps/shader
+cd ..
+./build/apps/shader
