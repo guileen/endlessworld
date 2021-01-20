@@ -9,4 +9,5 @@ cd ..
 # ./build/apps/app
 # ./build/apps/hello-triangle
 # ./build/apps/shader
-./build/apps/texture-demo
+# ./build/apps/texture-demo
+./build/apps/transformation
