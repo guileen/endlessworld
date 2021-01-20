@@ -5,7 +5,8 @@ cd build
 cmake ..
 make
 # make test
-# ./apps/app
-# ./apps/hello-triangle
 cd ..
-./build/apps/shader
+# ./build/apps/app
+# ./build/apps/hello-triangle
+# ./build/apps/shader
+./build/apps/texture-demo

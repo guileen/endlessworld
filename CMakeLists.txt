@@ -52,6 +52,7 @@ include_directories(
   "${CMAKE_SOURCE_DIR}/include"
   # 使用源码导入
   "${CMAKE_SOURCE_DIR}/thirdparty/glm"
+  "${CMAKE_SOURCE_DIR}/thirdparty/stb"
 )
 
 add_subdirectory(src)
