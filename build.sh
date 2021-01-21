@@ -10,4 +10,5 @@ cd ..
 # ./build/apps/hello-triangle
 # ./build/apps/shader
 # ./build/apps/texture-demo
-./build/apps/transformation
+# ./build/apps/transformation
+./build/apps/6.1.coordinate_systems
