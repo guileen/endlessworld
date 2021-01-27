@@ -21,6 +21,11 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+// setup camera, share with input
+glm::vec3 cameraPos = glm::vec3(0.f,0.f,3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f,0.0f,-1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f,1.0f,0.f);
+
 int main()
 {
     // glfw: initialize and configure
@@ -222,15 +227,9 @@ int main()
         // activate shader
         ourShader.use();
       
+        std::cout << "xx" << glm::to_string(cameraPos) << std::endl;
         // create transformations
-        float radius = 10.0f;
-        float camX = sin(glfwGetTime())*radius;
-        float camZ = cos(glfwGetTime())*radius;
-        glm::mat4 view = glm::lookAt(
-            glm::vec3(camX, 0., camZ),// camera position
-            glm::vec3(0., 0., 0.), // target position
-            glm::vec3(0., 1., 0.)); // up
-
+        glm::mat4 view = glm::lookAt(cameraPos, cameraPos+cameraFront, cameraUp);
 
         glm::mat4 projection    = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -251,7 +250,7 @@ int main()
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
             ourShader.setMat4("model", model);
 
-            std::cout << "xx" << glm::to_string(model) << std::endl;
+            // std::cout << "xx" << glm::to_string(model) << std::endl;
             glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
@@ -280,8 +279,17 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
+    float cameraSpeed = 0.05f;
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp))*cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp))*cameraSpeed;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
