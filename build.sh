@@ -11,4 +11,5 @@ cd ..
 # ./build/apps/shader
 # ./build/apps/texture-demo
 # ./build/apps/transformation
-./build/apps/6.1.coordinate_systems
+# ./build/apps/6.1.coordinate_systems
+./build/apps/camera
