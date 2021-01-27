@@ -1,5 +1,5 @@
 #!/bin/sh
-rm -rf build
+# rm -rf build
 mkdir -p build
 cd build
 cmake ..
@@ -12,4 +12,5 @@ cd ..
 # ./build/apps/texture-demo
 # ./build/apps/transformation
 # ./build/apps/6.1.coordinate_systems
-./build/apps/camera
+# ./build/apps/camera
+./build/apps/lighting
