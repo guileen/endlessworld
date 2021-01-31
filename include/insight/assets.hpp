@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
+#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <filesystem>
 #include <iostream>
@@ -22,7 +23,7 @@ namespace ins
     int load3DModel(const char *path);
     // 加载材质
     int loadTexture(const char *path, unsigned int *texture, int req_channels);
-    int uniformTexture(int shaderId, const char *glVariableName, int glTextureID, int texture);
+    int bindTexture(int shaderId, const char *glVariableName, int glTextureID, int texture);
 
 }; // namespace imm
 
@@ -56,9 +57,9 @@ namespace ins
         return 0;
     }
 
-    int uniformTexture(int shaderId, const char *glVariableName, int glTextureID, int texture) {
+    int bindTexture(int shaderId, const char *glVariableName, int glTextureID, int texture) {
         if (glTextureID < GL_TEXTURE0 || glTextureID > GL_TEXTURE31) {
-            std::cout << "uniformTexture: Invalid glTextureID" << glTextureID << std::endl;
+            std::cout << "bindTexture: Invalid glTextureID" << glTextureID << std::endl;
             return 1;
         }
         int location = glTextureID - GL_TEXTURE0;

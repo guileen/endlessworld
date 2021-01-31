@@ -104,8 +104,8 @@ int main()
     // -------------------------------------------------------------------------------------------
     ourShader.use(); // don't forget to activate/use the shader before setting uniforms!
     // 使用 insight 绑定素材
-    ins::uniformTexture(ourShader.ID, "texture1", GL_TEXTURE0, texture1);
-    ins::uniformTexture(ourShader.ID, "texture2", GL_TEXTURE1, texture2);
+    ins::bindTexture(ourShader.ID, "texture1", GL_TEXTURE0, texture1);
+    ins::bindTexture(ourShader.ID, "texture2", GL_TEXTURE1, texture2);
 
     // render loop
     // -----------
