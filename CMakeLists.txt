@@ -35,7 +35,7 @@ endif()
 find_package(glfw3 3.3 REQUIRED)
 
 # GLAD
-add_library(GLAD "thirdparty/glad/glad.c")
+# add_library(GLAD "thirdparty/glad/glad.c")
 
 find_package(Boost REQUIRED)
 
@@ -48,11 +48,27 @@ include(FetchContent)
 #   GIT_TAG 7.0.2)
 # FetchContent_MakeAvailable(fmtlib)
 
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/thirdparty/imgui)
+
+file(
+	GLOB IMGUI_SRC
+		"${IMGUI_DIR}/backends/imgui_impl_glfw.cpp"
+		"${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp"
+		"${IMGUI_DIR}/imgui.cpp"
+		"${IMGUI_DIR}/imgui_draw.cpp"
+		"${IMGUI_DIR}/imgui_demo.cpp"
+		"${IMGUI_DIR}/imgui_tables.cpp"
+		"${IMGUI_DIR}/imgui_widgets.cpp"
+		# "${IMGUI_DIR}/*.h"
+)
+
 include_directories(
   "${CMAKE_SOURCE_DIR}/include"
   # 使用源码导入
   "${CMAKE_SOURCE_DIR}/thirdparty/glm"
   "${CMAKE_SOURCE_DIR}/thirdparty/stb"
+  "${CMAKE_SOURCE_DIR}/thirdparty/imgui"
+  "${CMAKE_SOURCE_DIR}/thirdparty/imgui/backends"
 )
 
 add_subdirectory(src)
