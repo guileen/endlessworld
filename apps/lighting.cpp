@@ -179,7 +179,7 @@ int main()
 
     unsigned int texture, texture_specular, texture_emission;
     ins::loadTexture("resources/textures/container2.png", &texture, ins::rgb);
-    ins::loadTexture("resources/textures/lighting_maps_specular_color.png", &texture_specular, ins::rgb);
+    ins::loadTexture("resources/textures/container2_specular.png", &texture_specular, ins::rgb);
     ins::loadTexture("resources/textures/matrix.jpg", &texture_emission, ins::rgb);
 
     // render loop
@@ -207,7 +207,7 @@ int main()
         lightingShader.use();
         ins::bindTexture(lightingShader.ID, "material.diffuse", GL_TEXTURE0, texture);
         ins::bindTexture(lightingShader.ID, "material.specular", GL_TEXTURE1, texture_specular);
-        ins::bindTexture(lightingShader.ID, "material.emission", GL_TEXTURE2, texture_emission);
+        // ins::bindTexture(lightingShader.ID, "material.emission", GL_TEXTURE2, texture_emission);
 
         // lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         // lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
@@ -222,7 +222,7 @@ int main()
         // lightingShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         lightingShader.setFloat("material.shininess", 32.0f);
-        lightingShader.setFloat("material.emissionStrength", 0.2 + 0.1*sin(0.5*currentFrame));
+        // lightingShader.setFloat("material.emissionStrength", 0.2 + 0.1*sin(0.5*currentFrame));
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);

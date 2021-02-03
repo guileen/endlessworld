@@ -16,7 +16,7 @@ void main()
     // 模型坐标 * 顶点坐标 = FragPos  实体的世界坐标
     FragPos = vec3(model * vec4(aPos, 1.0));
     // 法线
-    Normal = aNormal;  
+    Normal = mat3(transpose(inverse(model))) * aNormal;  
     
     gl_Position = projection * view * vec4(FragPos, 1.0);
     TexCoords = aTexCoords;
