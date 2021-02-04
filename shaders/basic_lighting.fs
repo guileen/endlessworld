@@ -13,7 +13,10 @@ struct Light {
     // 点光源
     vec3 position;
     // 平行光
-    // vec3 direction;
+    vec3 direction;
+    float cutOff;
+    float outerCutOff;
+
 
     vec3 ambient;
     vec3 diffuse;
@@ -48,6 +51,11 @@ void main()
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(light.position - FragPos);
     // vec3 lightDir = normalize(-light.direction);
+    float theta = dot(lightDir, normalize(-light.direction));
+    float epsilon   = light.cutOff - light.outerCutOff;
+    // clamp 约束范围，此处可以代替if-else, 负值变成了0.
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
             
@@ -60,7 +68,7 @@ void main()
     float distance = length(light.position - FragPos);
     float attenuation = 1.0 / (light.c1 + light.c2 * distance + light.c3 * distance * distance);
 
-    vec3 result = (ambient + diffuse + specular) * attenuation;
+    vec3 result = ambient + (diffuse + specular ) * intensity * attenuation;
     FragColor = vec4(result, 1.0);
 
 } 

@@ -204,7 +204,7 @@ int main()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        lightPos = glm::vec3(-1.0+cos(currentFrame)*2.0f,1.5f,sin(currentFrame)*2.0f);
+        lightPos = glm::vec3(-1.0+cos(currentFrame)*2.0f,0.8f,sin(currentFrame)*2.0f);
 
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
@@ -216,8 +216,13 @@ int main()
         // lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         lightingShader.setVec3("viewPos", camera.Position);
 
+        // lightingShader.setVec3("light.position",  camera.Position);
+        lightingShader.setVec3("light.direction", glm::vec3(1.0,0.0,-1.0));
+        lightingShader.setFloat("light.cutOff",   glm::cos(glm::radians(12.5f)));
+        lightingShader.setFloat("light.outerCutOff",   glm::cos(glm::radians(12.5f)));
+
         lightingShader.setVec3("light.position", lightPos);
-        // lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+        // // lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
         lightingShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
         lightingShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f); 
