@@ -41,6 +41,9 @@ float lastFrame = 0.0f;
 
 // lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+float c1 = 0.2f;
+float c2 = 0.09f;
+float c3 = 0.032f;
 
 int main()
 {
@@ -201,7 +204,7 @@ int main()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        lightPos = glm::vec3(cos(currentFrame)*2.f,1.5f,sin(currentFrame)*2.f);
+        lightPos = glm::vec3(-1.0+cos(currentFrame)*2.0f,1.5f,sin(currentFrame)*2.0f);
 
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
@@ -211,13 +214,16 @@ int main()
 
         // lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         // lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-        // lightingShader.setVec3("light.position", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
 
-        lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+        lightingShader.setVec3("light.position", lightPos);
+        // lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
         lightingShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
         lightingShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f); 
+        lightingShader.setFloat("light.c1",  c1);
+        lightingShader.setFloat("light.c2",  c2);
+        lightingShader.setFloat("light.c3",  c3);
         lightingShader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
         // lightingShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
@@ -300,7 +306,7 @@ void guiFrame(bool show_demo_window) {
     if (show_demo_window)
     // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
-            static float f = 0.0f;
+            // static float f = 0.0f;
             static int counter = 0;
 
             ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
@@ -308,7 +314,10 @@ void guiFrame(bool show_demo_window) {
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("c1", &c1, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("c2", &c2, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("c3", &c3, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
             if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
