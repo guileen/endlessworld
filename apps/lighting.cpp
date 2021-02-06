@@ -41,6 +41,8 @@ float lastFrame = 0.0f;
 
 // lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+float cutoff = 12.5f;
+float outerCutoff = 14.f;
 float c1 = 0.2f;
 float c2 = 0.09f;
 float c3 = 0.032f;
@@ -218,8 +220,8 @@ int main()
 
         // lightingShader.setVec3("light.position",  camera.Position);
         lightingShader.setVec3("light.direction", glm::vec3(1.0,0.0,-1.0));
-        lightingShader.setFloat("light.cutOff",   glm::cos(glm::radians(12.5f)));
-        lightingShader.setFloat("light.outerCutOff",   glm::cos(glm::radians(12.5f)));
+        lightingShader.setFloat("light.cutOff",   glm::cos(glm::radians(cutoff)));
+        lightingShader.setFloat("light.outerCutOff",   glm::cos(glm::radians(outerCutoff)));
 
         lightingShader.setVec3("light.position", lightPos);
         // // lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
@@ -319,6 +321,8 @@ void guiFrame(bool show_demo_window) {
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 
+            ImGui::SliderFloat("cutoff", &cutoff, 0.0f, 180.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("outerCutoff", &outerCutoff, 0.0f, 180.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::SliderFloat("c1", &c1, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::SliderFloat("c2", &c2, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::SliderFloat("c3", &c3, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
