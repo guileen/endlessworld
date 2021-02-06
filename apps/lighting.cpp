@@ -47,6 +47,13 @@ float c1 = 0.2f;
 float c2 = 0.09f;
 float c3 = 0.032f;
 
+glm::vec3 pointLightPositions[] = {
+    glm::vec3( 0.7f,  0.2f,  2.0f),
+    glm::vec3( 2.3f, -3.3f, -4.0f),
+    glm::vec3(-4.0f,  2.0f, -12.0f),
+    glm::vec3( 0.0f,  0.0f, -3.0f)
+};
+
 int main()
 {
     // glfw: initialize and configure
@@ -218,19 +225,61 @@ int main()
         // lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         lightingShader.setVec3("viewPos", camera.Position);
 
+        // 黄色的手电筒
         // lightingShader.setVec3("light.position",  camera.Position);
-        lightingShader.setVec3("light.direction", glm::vec3(1.0,0.0,-1.0));
-        lightingShader.setFloat("light.cutOff",   glm::cos(glm::radians(cutoff)));
-        lightingShader.setFloat("light.outerCutOff",   glm::cos(glm::radians(outerCutoff)));
+        lightingShader.setVec3("spotLight.direction", glm::vec3(1.0,0.0,-1.0));
+        lightingShader.setFloat("spotLight.cutOff",   glm::cos(glm::radians(cutoff)));
+        lightingShader.setFloat("spotLight.outerCutOff",   glm::cos(glm::radians(outerCutoff)));
 
-        lightingShader.setVec3("light.position", lightPos);
+        lightingShader.setVec3("spotLight.point.position", lightPos);
         // // lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
-        lightingShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
-        lightingShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
-        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f); 
-        lightingShader.setFloat("light.c1",  c1);
-        lightingShader.setFloat("light.c2",  c2);
-        lightingShader.setFloat("light.c3",  c3);
+        lightingShader.setVec3("spotLight.point.ambient",  0.3f, 0.2f, 0.2f);
+        lightingShader.setVec3("spotLight.point.diffuse",  0.6f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
+        lightingShader.setVec3("spotLight.point.specular", 1.0f, 0.8f, 0.8f); 
+        lightingShader.setFloat("spotLight.point.c1",  c1);
+        lightingShader.setFloat("spotLight.point.c2",  c2);
+        lightingShader.setFloat("spotLight.point.c3",  c3);
+
+        // 平行光, 蓝色的月光
+        lightingShader.setVec3("dirLight.direction", glm::vec3(1.0,-1.0,-0.5));
+        lightingShader.setVec3("dirLight.ambient", 0.1,0.1,0.2);
+        lightingShader.setVec3("dirLight.diffuse", 0.2,0.2,0.4);
+        lightingShader.setVec3("dirLight.specular", 0.5,0.5,0.8);
+
+        // 4个路灯
+// point light 1
+        lightingShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+        lightingShader.setVec3("pointLights[0].ambient", 0.005f, 0.05f, 0.005f);
+        lightingShader.setVec3("pointLights[0].diffuse", 0.08f, 0.8f, 0.08f);
+        lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[0].c1", 1.0f);
+        lightingShader.setFloat("pointLights[0].c2", 0.09);
+        lightingShader.setFloat("pointLights[0].c3", 0.032);
+        // point light 2
+        lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
+        lightingShader.setVec3("pointLights[1].ambient", 0.3f, 0.02f, 0.02f);
+        lightingShader.setVec3("pointLights[1].diffuse", 1.0f, 0.2f, 0.2f);
+        lightingShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[1].c1", 1.0f);
+        lightingShader.setFloat("pointLights[1].c2", 0.09);
+        lightingShader.setFloat("pointLights[1].c3", 0.032);
+        // point light 3
+        lightingShader.setVec3("pointLights[2].position", pointLightPositions[2]);
+        lightingShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.1f);
+        lightingShader.setVec3("pointLights[2].diffuse", 0.08f, 0.08f, 0.8f);
+        lightingShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[2].c1", 1.0f);
+        lightingShader.setFloat("pointLights[2].c2", 0.09);
+        lightingShader.setFloat("pointLights[2].c3", 0.032);
+        // point light 4
+        lightingShader.setVec3("pointLights[3].position", pointLightPositions[3]);
+        lightingShader.setVec3("pointLights[3].ambient", 0.05f, 0.03f, 0.03f);
+        lightingShader.setVec3("pointLights[3].diffuse", 0.8f, 0.03f, 0.03f);
+        lightingShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[3].c1", 1.0f);
+        lightingShader.setFloat("pointLights[3].c2", 0.09);
+        lightingShader.setFloat("pointLights[3].c3", 0.032);
+
         lightingShader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
         // lightingShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
@@ -265,9 +314,16 @@ int main()
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
         lightCubeShader.setMat4("model", model);
-
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
+        for (unsigned int i = 0; i < 4; i++)
+         {
+             model = glm::mat4(1.0f);
+             model = glm::translate(model, pointLightPositions[i]);
+             model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+             lightCubeShader.setMat4("model", model);
+             glDrawArrays(GL_TRIANGLES, 0, 36);
+         }
 
         guiFrame(true);
 
@@ -321,11 +377,11 @@ void guiFrame(bool show_demo_window) {
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 
-            ImGui::SliderFloat("cutoff", &cutoff, 0.0f, 180.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat("outerCutoff", &outerCutoff, 0.0f, 180.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat("c1", &c1, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat("c2", &c2, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat("c3", &c3, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("spotLight.cutoff", &cutoff, 0.0f, 180.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("spotLight.outerCutoff", &outerCutoff, 0.0f, 180.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("spotLight.pointLight.c1", &c1, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("spotLight.pointLight.c2", &c2, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("spotLight.pointLight.c3", &c3, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
