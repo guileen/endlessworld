@@ -81,9 +81,11 @@ class Model {
                 aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
                 vector<Texture> diffuseMaps = loadMaterialTextures(material,
                     aiTextureType_DIFFUSE, "texture_diffuse");
+                std::cout<<"texture_diffuse map count:"<<diffuseMaps.size()<<std::endl;
                 textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
                 vector<Texture> specularMaps = loadMaterialTextures(material,
                     aiTextureType_SPECULAR, "texture_specualr");
+                std::cout<<"texture_specular map count:"<<specularMaps.size()<<std::endl;
                 textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
             }
             return Mesh(vertices, indices, textures);

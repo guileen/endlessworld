@@ -6,6 +6,7 @@ in vec3 Normal;
 in vec3 FragPos;  
 
 uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
 
 struct Material {
     vec3 ambient;
@@ -104,7 +105,7 @@ void main()
     // 素材颜色
     Material material;
     material.diffuse = vec3(texture(texture_diffuse1, TexCoords));
-    material.specular = material.diffuse;
+    material.specular = vec3(texture(texture_specular1, TexCoords));
 
     // 法向量归一化, 归一使其长度为1.
     vec3 norm = normalize(Normal);
