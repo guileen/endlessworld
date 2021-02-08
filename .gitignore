@@ -2,6 +2,7 @@ sdldemos
 xcuserdata
 a.out
 build
-# .vscode
+.vscode
 temp
 imgui.ini
+resources/models

@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
+message("version" ${CMAKE_VERSION} )
 project(endlessworld VERSION 0.1.0)
 
 # Only do these if this is the main project, and not if it is included through
@@ -26,6 +27,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   else()
     message(STATUS "Doxygen not found, not building docs")
   endif()
+endif()
+
+# 编译选项
+if(MSVC)
+  add_compile_options( /W4 /WX)
+else()
+  add_compile_options(-w)
 endif()
 
 # GLM
@@ -69,7 +77,10 @@ include_directories(
   "${CMAKE_SOURCE_DIR}/thirdparty/stb"
   "${CMAKE_SOURCE_DIR}/thirdparty/imgui"
   "${CMAKE_SOURCE_DIR}/thirdparty/imgui/backends"
+  "${CMAKE_SOURCE_DIR}/thirdparty/assimp/include"
 )
+
+add_subdirectory(thirdparty/assimp)
 
 add_subdirectory(src)
 
