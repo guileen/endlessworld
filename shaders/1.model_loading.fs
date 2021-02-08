@@ -11,9 +11,6 @@ struct Material {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
-    vec3 emission;
-    float emissionStrength;
-    float shininess;
 };
 
 // 光照逻辑
@@ -34,7 +31,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, Material material, vec3 viewDir) 
     float diff = max(dot(normal, lightDir), 0.0);
     // 镜面反射光
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    float spec = max(dot(viewDir, reflectDir), 0.0);
     // 合并结果
     vec3 ambient = light.ambient * material.diffuse;
     vec3 diffuse = light.diffuse * diff * material.diffuse;
@@ -63,7 +60,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, Material material, vec3 fragP
     vec3 reflectDir = reflect(-lightDir, normal);
     // dot 计算反射光在视角上的cos分量，至少为0。使用pow，模拟镜面光焦点分布集中度，shininess越高要求反射分量越接近于1
     // 反射分量==1 表示必须视角恰巧与反射角完全一致才能看到反射光，也就是绝对镜面。
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    float spec = max(dot(viewDir, reflectDir), 0.0);
     // 衰减。 length 计算光源到片段的距离。
     float distance = length(light.position - fragPos);
     // 常量衰减，一次衰减表示光线均匀衰减，二次衰减表示光线高速衰减至某一距离几乎不可见，按能量的耗散还应有三次衰减。
@@ -107,6 +104,7 @@ void main()
     // 素材颜色
     Material material;
     material.diffuse = vec3(texture(texture_diffuse1, TexCoords));
+    material.specular = material.diffuse;
 
     // 法向量归一化, 归一使其长度为1.
     vec3 norm = normalize(Normal);

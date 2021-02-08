@@ -151,8 +151,8 @@ int main()
         // 平行光, 蓝色的月光
         ourShader.setVec3("dirLight.direction", glm::vec3(1.0,-1.0,-0.5));
         ourShader.setVec3("dirLight.ambient", 0.1,0.1,0.2);
-        ourShader.setVec3("dirLight.diffuse", 0.6,0.6,0.6);
-        ourShader.setVec3("dirLight.specular", 0.5,0.5,0.8);
+        ourShader.setVec3("dirLight.diffuse", 0.3,0.3,0.3);
+        ourShader.setVec3("dirLight.specular", 0.7,0.7,0.7);
 
         // 4个路灯
 // point light 1
