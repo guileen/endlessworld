@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 3.14)
 message("version" ${CMAKE_VERSION} )
 project(endlessworld VERSION 0.1.0)
 
+# 编译选项
+if(MSVC)
+  add_compile_options( /W4 /WX)
+else()
+  #  add_compile_options (-fdiagnostics-color=always) #GNU
+  add_compile_options(-w -fcolor-diagnostics) #Clang
+endif()
+
 # Only do these if this is the main project, and not if it is included through
 # add_subdirectory
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -27,13 +35,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   else()
     message(STATUS "Doxygen not found, not building docs")
   endif()
-endif()
-
-# 编译选项
-if(MSVC)
-  add_compile_options( /W4 /WX)
-else()
-  add_compile_options(-w)
 endif()
 
 # GLM
